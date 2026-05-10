@@ -226,10 +226,18 @@ export interface WeaknessEntry {
   problemTitle: string;
 }
 
+export interface QuestionFeedback {
+  score: number;
+  feedback: string;
+  strengths?: string[];
+  issues?: string[];
+}
+
 export interface DsaRoundReport extends SessionReport {
   questions: DsaRoundQuestion[];
   totalAllocatedMinutes: number;
   totalTimeTakenMinutes: number;
   followUps?: Record<string, FollowUp[]>;
   weakTopics?: string[];
+  questionFeedback?: Record<number, QuestionFeedback>;
 }

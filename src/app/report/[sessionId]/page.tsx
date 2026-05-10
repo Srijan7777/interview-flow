@@ -556,6 +556,127 @@ function ReportPage({ params }: PageProps) {
           )}
         </div>
 
+        {/* Per-question AI feedback (DSA round) */}
+        {(() => {
+          const roundReport = report as DsaRoundReport;
+          const qs = roundReport.questions;
+          const fb = roundReport.questionFeedback;
+          if (!qs?.length || !fb || Object.keys(fb).length === 0) return null;
+          return (
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-amber-500/15 text-amber-300">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] uppercase tracking-[0.2em] text-amber-300 font-medium">
+                    Per-Question Breakdown
+                  </div>
+                  <h3 className="text-base font-semibold text-white">
+                    What the AI saw in your code
+                  </h3>
+                </div>
+              </div>
+              <div className="space-y-4">
+                {qs.map((q, i) => {
+                  const f = fb[i];
+                  if (!f) return null;
+                  const tone =
+                    f.score >= 8
+                      ? "border-emerald-500/30 bg-emerald-500/5"
+                      : f.score >= 6
+                        ? "border-amber-500/30 bg-amber-500/5"
+                        : "border-red-500/30 bg-red-500/5";
+                  return (
+                    <Card
+                      key={i}
+                      className={`bg-slate-900/60 border ${tone} p-5 report-glass`}
+                    >
+                      <div className="flex items-start justify-between gap-4 mb-3">
+                        <div className="min-w-0">
+                          <div className="text-[10px] uppercase tracking-[0.2em] text-slate-400 font-medium mb-1">
+                            Q{i + 1} · {q.problem.difficulty} · {q.problem.topic}
+                          </div>
+                          <h4 className="text-base font-semibold text-white truncate">
+                            {q.problem.title}
+                          </h4>
+                        </div>
+                        <div className="shrink-0 flex flex-col items-end gap-1">
+                          <span
+                            className={`text-2xl font-mono font-bold tabular-nums ${
+                              f.score >= 8
+                                ? "text-emerald-300"
+                                : f.score >= 6
+                                  ? "text-amber-300"
+                                  : "text-red-300"
+                            }`}
+                          >
+                            {f.score}/10
+                          </span>
+                          <span className="text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                            {q.result || "—"}
+                          </span>
+                        </div>
+                      </div>
+                      {f.feedback && (
+                        <p className="text-sm text-slate-300 leading-relaxed mb-4">
+                          {f.feedback}
+                        </p>
+                      )}
+                      {(f.strengths?.length || f.issues?.length) && (
+                        <div className="grid sm:grid-cols-2 gap-3 mb-4">
+                          {(f.strengths?.length ?? 0) > 0 && (
+                            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/[0.04] p-3">
+                              <div className="flex items-center gap-1.5 mb-2 text-[10px] uppercase tracking-[0.18em] text-emerald-300 font-medium">
+                                <CheckCircle2 className="w-3 h-3" />
+                                Strengths
+                              </div>
+                              <ul className="space-y-1.5 text-xs text-emerald-100/90 leading-relaxed">
+                                {f.strengths!.map((s, k) => (
+                                  <li key={k} className="flex gap-1.5">
+                                    <span className="text-emerald-400 shrink-0">·</span>
+                                    <span>{s}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                          {(f.issues?.length ?? 0) > 0 && (
+                            <div className="rounded-lg border border-red-500/20 bg-red-500/[0.04] p-3">
+                              <div className="flex items-center gap-1.5 mb-2 text-[10px] uppercase tracking-[0.18em] text-red-300 font-medium">
+                                <AlertTriangle className="w-3 h-3" />
+                                Issues
+                              </div>
+                              <ul className="space-y-1.5 text-xs text-red-100/90 leading-relaxed">
+                                {f.issues!.map((s, k) => (
+                                  <li key={k} className="flex gap-1.5">
+                                    <span className="text-red-400 shrink-0">·</span>
+                                    <span>{s}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      {q.code && (
+                        <details className="text-xs">
+                          <summary className="cursor-pointer text-slate-400 hover:text-slate-200 transition uppercase tracking-[0.18em] text-[10px] font-medium">
+                            View submitted code
+                          </summary>
+                          <pre className="mt-2 p-3 rounded-lg bg-black/60 border border-slate-800 text-slate-300 text-xs overflow-auto max-h-64 font-mono leading-relaxed">
+{q.code}
+                          </pre>
+                        </details>
+                      )}
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Optimal approach summary + complexity + insights */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-6">
           <Card className="lg:col-span-2 bg-slate-900/60 border-slate-800/80 p-6 report-glass">

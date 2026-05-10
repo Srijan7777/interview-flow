@@ -1,4 +1,5 @@
 import { Problem, SessionReport, DsaRound, DsaRoundReport } from "@/types";
+import { getLeetCodeDescriptionText, getLeetCodeExamplesRaw } from "@/lib/leetcode-data";
 
 const GROQ_API = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "llama-3.3-70b-versatile";
@@ -222,13 +223,31 @@ export async function generateRoundReport(round: DsaRound, experience: string): 
   const questionsText = round.questions
     .map((q, i) => {
       const timeStr = q.timeTakenMinutes !== undefined ? `${q.timeTakenMinutes}/${q.allocatedMinutes}` : "N/A";
-      return `Q${i + 1}: ${q.problem.title} (${q.problem.difficulty})
+      const lcNum = q.problem.leetcodeNumber;
+      const description = lcNum ? getLeetCodeDescriptionText(lcNum) : "";
+      const examples = lcNum ? getLeetCodeExamplesRaw(lcNum) : "";
+      const descBlock = description
+        ? `Problem Description:\n${description.slice(0, 2000)}\n`
+        : `Problem Description: (not available — grade by inferring from title and code)\n`;
+      const examplesBlock = examples
+        ? `Example Test Cases:\n${examples.slice(0, 800)}\n`
+        : "";
+      return `=== Q${i + 1}: ${q.problem.title} (${q.problem.difficulty}) ===
+Topic: ${q.problem.topic}
+LeetCode #: ${lcNum ?? "N/A"}
 Time: ${timeStr} min
 Result: ${q.result || "not attempted"}
-Tests: ${q.testPassed ?? 0}/${q.testTotal ?? 0}
-Code: ${q.code || "N/A"}`;
+Auto-tests: ${q.testPassed ?? 0}/${q.testTotal ?? 0}
+Language: ${q.language || "unknown"}
+
+${descBlock}
+${examplesBlock}
+Candidate Code:
+\`\`\`${q.language || ""}
+${q.code || "(no code submitted)"}
+\`\`\``;
     })
-    .join("\n\n");
+    .join("\n\n---\n\n");
 
   const prompt = `You are a senior FAANG interviewer evaluating a multi-question coding round.
 
@@ -241,12 +260,18 @@ Code: ${q.code || "N/A"}`;
 ## Detailed Question Breakdown
 ${questionsText}
 
-Evaluate each question separately and provide an overall round score.
+For EACH question, evaluate the candidate's code against the problem description and example test cases. Identify specific bugs, off-by-one errors, missing edge cases, suboptimal complexity, naming issues. Be specific — quote variable names or line excerpts where useful. If the code is correct, say so plainly.
 
 Return ONLY valid JSON matching this exact shape:
 {
   "questions": [
-    { "index": 0, "score": 8, "feedback": "Strong solution" }
+    {
+      "index": 0,
+      "score": 8,
+      "feedback": "Concrete summary citing the candidate's code: what works, what's wrong. 2-4 sentences.",
+      "strengths": ["Specific thing they did well, referencing their code"],
+      "issues": ["Specific bug or edge case missed, with the variable/line called out"]
+    }
   ],
   "score": {
     "overall": 8,
@@ -285,6 +310,27 @@ Return ONLY valid JSON matching this exact shape:
   const text = await callGroq(prompt);
   const parsed = JSON.parse(text);
 
+  // Build per-question feedback map keyed by question index
+  const questionFeedback: DsaRoundReport["questionFeedback"] = {};
+  if (Array.isArray(parsed.questions)) {
+    for (const q of parsed.questions) {
+      if (typeof q?.index === "number") {
+        questionFeedback[q.index] = {
+          score: typeof q.score === "number" ? q.score : 5,
+          feedback: typeof q.feedback === "string" ? q.feedback : "",
+          strengths: Array.isArray(q.strengths) ? q.strengths : undefined,
+          issues: Array.isArray(q.issues) ? q.issues : undefined,
+        };
+      }
+    }
+  }
+
+  // Backfill per-question score onto the round questions so weakness tracker works
+  const questionsWithScore = round.questions.map((q, i) => ({
+    ...q,
+    score: questionFeedback[i]?.score ?? q.score,
+  }));
+
   const report: DsaRoundReport = {
     sessionId: "",
     generatedAt: new Date().toISOString(),
@@ -304,11 +350,12 @@ Return ONLY valid JSON matching this exact shape:
     missing: parsed.missing || [],
     optimalApproach: parsed.optimalApproach || { summary: "", keyInsights: [] },
     recommendation: parsed.recommendation || { shouldRetry: true, suggestedTopics: [], nextDifficulty: "medium" },
-    questions: round.questions,
+    questions: questionsWithScore,
     totalAllocatedMinutes: round.questions.reduce((s, q) => s + q.allocatedMinutes, 0),
     totalTimeTakenMinutes: round.questions.reduce((s, q) => s + (q.timeTakenMinutes || 0), 0),
     followUps: parsed.followUps || {},
     weakTopics: parsed.weakTopics || [],
+    questionFeedback,
   };
 
   return report;
