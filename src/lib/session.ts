@@ -57,6 +57,8 @@ export const HLD_PROMPTS = [
       "Guarantee at-least-once delivery",
     ],
     difficulty: "medium" as const,
+    referenceUrl: "https://systemdesign.one/notification-service/",
+    referenceLabel: "System Design One",
   },
   {
     id: "cache-system",
@@ -70,6 +72,8 @@ export const HLD_PROMPTS = [
       "Handle node failures",
     ],
     difficulty: "medium" as const,
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-cache",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "chat-system",
@@ -114,6 +118,8 @@ export const HLD_PROMPTS = [
       "Distributed crawling and indexing",
     ],
     difficulty: "hard" as const,
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/fb-post-search",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "video-platform",
@@ -142,6 +148,8 @@ export const HLD_PROMPTS = [
       "Audit trail and dispute resolution",
     ],
     difficulty: "hard" as const,
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/payment-system",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "recommendations",
@@ -155,6 +163,8 @@ export const HLD_PROMPTS = [
       "Model serving at scale",
     ],
     difficulty: "hard" as const,
+    referenceUrl: "https://netflixtechblog.com/system-architectures-for-personalization-and-recommendation-e081aa94b5d8",
+    referenceLabel: "Netflix Tech Blog",
   },
   {
     id: "uber",
