@@ -118,6 +118,17 @@ export async function POST(request: NextRequest) {
         );
       }
 
+      if (!curatedProblem.canonicalCases || curatedProblem.canonicalCases.length === 0) {
+        return Response.json({
+          ok: false,
+          draft: true,
+          message: "Test cases pending — submit disabled for this problem.",
+          passed: 0,
+          total: 0,
+          results: [],
+        });
+      }
+
       return Response.json({
         passed: 0,
         total: curatedProblem.canonicalCases.length,
