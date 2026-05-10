@@ -160,6 +160,7 @@ export interface HLDScenario {
   difficulty: "easy" | "medium" | "hard";
   referenceUrl?: string;
   referenceLabel?: string;
+  companies?: string[];
 }
 
 export interface LLDScenario {
