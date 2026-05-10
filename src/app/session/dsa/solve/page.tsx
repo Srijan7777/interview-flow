@@ -44,6 +44,7 @@ function DSASolvePage() {
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [isDraft, setIsDraft] = useState(false);
   const [testResults, setTestResults] = useState<SessionTestResult | null>(null);
   const [showResults, setShowResults] = useState(false);
   const [language, setLanguage] = useState("javascript");
@@ -149,6 +150,7 @@ function DSASolvePage() {
         return;
       }
 
+      setIsDraft(!!result.draft);
       setTestResults(result);
       setShowResults(true);
     } catch (error) {
@@ -179,6 +181,13 @@ function DSASolvePage() {
 
       if (!testResponse.ok) {
         alert(testResult.error || "Failed to run tests");
+        setSubmitting(false);
+        return;
+      }
+
+      if (testResult.draft) {
+        setIsDraft(true);
+        alert("Submit disabled: this problem's test cases are pending curation. You can still Run, but Submit will be enabled once cases are added.");
         setSubmitting(false);
         return;
       }
@@ -350,10 +359,11 @@ function DSASolvePage() {
               </Button>
               <Button
                 onClick={handleSubmitQuestion}
-                disabled={submitting}
+                disabled={submitting || isDraft}
+                title={isDraft ? "Test cases pending curation for this problem" : undefined}
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white"
               >
-                Submit Question
+                {isDraft ? "Submit (pending cases)" : "Submit Question"}
               </Button>
             </div>
 
