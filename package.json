@@ -6,10 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "ingest:striver": "tsx scripts/ingest-striver-sde.ts",
+    "ingest:dry": "tsx scripts/ingest-striver-sde.ts --dry-run --limit=3"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
+    "@supabase/supabase-js": "^2.105.4",
+    "next-auth": "^5.0.0-beta.31",
     "@excalidraw/excalidraw": "^0.18.1",
     "@monaco-editor/react": "^4.7.0",
     "@radix-ui/react-dialog": "^1.1.15",

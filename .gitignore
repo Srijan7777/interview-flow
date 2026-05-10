@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ingest script artifacts
+scripts/ingest.log
+scripts/*.tmp
+src/data/*.tmp
+src/lib/*.tmp
