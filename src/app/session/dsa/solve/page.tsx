@@ -185,18 +185,18 @@ function DSASolvePage() {
         return;
       }
 
+      // Draft = no canonical test cases yet. AI report still grades the code at round end.
+      // Treat as review-only so self-mark + AI grading kicks in.
       if (testResult.draft) {
         setIsDraft(true);
-        alert("Submit disabled: this problem's test cases are pending curation. You can still Run, but Submit will be enabled once cases are added.");
-        setSubmitting(false);
-        return;
       }
 
       const reviewOnly =
-        testResult.results?.length > 0 &&
-        testResult.results.every(
-          (r: any) => r.error === "Auto-check not available for this curated problem yet."
-        );
+        !!testResult.draft ||
+        (testResult.results?.length > 0 &&
+          testResult.results.every(
+            (r: any) => r.error === "Auto-check not available for this curated problem yet."
+          ));
       const allPassed = !reviewOnly && testResult.passed === testResult.total && testResult.total > 0;
       // Review-mode: trust user's self-mark if they confirmed solved
       const result: "solved" | "partial" | "stuck" = reviewOnly
@@ -359,21 +359,23 @@ function DSASolvePage() {
               </Button>
               <Button
                 onClick={handleSubmitQuestion}
-                disabled={submitting || isDraft}
-                title={isDraft ? "Test cases pending curation for this problem" : undefined}
+                disabled={submitting}
+                title={isDraft ? "No canonical test cases yet — AI will grade your code at round end" : undefined}
                 className="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white"
               >
-                {isDraft ? "Submit (pending cases)" : "Submit Question"}
+                {isDraft ? "Submit for AI review" : "Submit Question"}
               </Button>
             </div>
 
             {/* Verdict Banner */}
             {showResults && testResults && (() => {
+              const isDraftBanner = (testResults as any).draft === true;
               const reviewOnly =
-                testResults.results.length > 0 &&
-                testResults.results.every(
-                  (r: any) => r.error === "Auto-check not available for this curated problem yet."
-                );
+                isDraftBanner ||
+                (testResults.results.length > 0 &&
+                  testResults.results.every(
+                    (r: any) => r.error === "Auto-check not available for this curated problem yet."
+                  ));
               return (
                 <div
                   className={`p-3 rounded-lg border text-sm font-semibold ${
@@ -385,13 +387,15 @@ function DSASolvePage() {
                   }`}
                 >
                   <div>
-                    {reviewOnly
-                      ? "Review mode — no auto-check for this problem. Verify with sample inputs manually."
-                      : testResults.passed === testResults.total
-                        ? `✓ Accepted — ${testResults.passed}/${testResults.total} test cases passed`
-                        : testResults.results.some((r) => r.error)
-                          ? "✗ Compilation Error"
-                          : `✗ Wrong Answer — ${testResults.passed}/${testResults.total} test cases passed`}
+                    {isDraftBanner
+                      ? "No canonical test cases yet — submit for AI review. AI grades your code at round end."
+                      : reviewOnly
+                        ? "Review mode — no auto-check for this problem. Verify with sample inputs manually."
+                        : testResults.passed === testResults.total
+                          ? `✓ Accepted — ${testResults.passed}/${testResults.total} test cases passed`
+                          : testResults.results.some((r) => r.error)
+                            ? "✗ Compilation Error"
+                            : `✗ Wrong Answer — ${testResults.passed}/${testResults.total} test cases passed`}
                   </div>
                   {reviewOnly && (
                     <label className="flex items-center gap-2 mt-2 text-xs font-normal cursor-pointer">
