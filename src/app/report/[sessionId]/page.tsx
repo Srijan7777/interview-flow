@@ -826,6 +826,18 @@ function ReportPage({ params }: PageProps) {
           </div>
         </Card>
 
+        {/* Single-question follow-ups (HLD/LLD) — interviewer-style stretch Qs */}
+        {report.interviewerFollowUps && report.interviewerFollowUps.length > 0 && !(report as any).questions && (
+          <div className="mb-10">
+            <FollowUpPanel
+              followUps={undefined}
+              questions={[]}
+              flatFollowUps={report.interviewerFollowUps}
+              sessionTitle={report.problem.title}
+            />
+          </div>
+        )}
+
         {/* Reference article — read after attempting */}
         {report.reference?.url && (
           <a

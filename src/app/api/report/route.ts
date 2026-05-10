@@ -77,6 +77,7 @@ export async function POST(request: NextRequest) {
         try {
           report = await generateHLDReportGroq({
             title: scenario.title,
+            problemContext: scenario.prompt || "",
             requirements: scenario.requirements,
             diagramDescription,
             experience,

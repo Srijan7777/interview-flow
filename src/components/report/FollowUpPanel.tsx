@@ -8,6 +8,8 @@ import { MessageSquare, ChevronDown, Lightbulb } from "lucide-react";
 interface FollowUpPanelProps {
   followUps: Record<string, FollowUp[]> | undefined;
   questions: DsaRoundQuestion[];
+  flatFollowUps?: FollowUp[];
+  sessionTitle?: string;
 }
 
 const DIFF_STYLES: Record<string, string> = {
@@ -64,8 +66,10 @@ function FollowUpItem({ fu, idx }: { fu: FollowUp; idx: number }) {
   );
 }
 
-export default function FollowUpPanel({ followUps, questions }: FollowUpPanelProps) {
-  if (!followUps || Object.keys(followUps).length === 0) return null;
+export default function FollowUpPanel({ followUps, questions, flatFollowUps, sessionTitle }: FollowUpPanelProps) {
+  const hasFlat = Array.isArray(flatFollowUps) && flatFollowUps.length > 0;
+  const hasRound = followUps && Object.keys(followUps).length > 0 && questions?.length > 0;
+  if (!hasFlat && !hasRound) return null;
 
   return (
     <Card className="bg-slate-900/60 border-slate-800/80 p-6 report-glass">
@@ -81,6 +85,25 @@ export default function FollowUpPanel({ followUps, questions }: FollowUpPanelPro
         </div>
       </div>
 
+      {hasFlat && (
+        <div>
+          {sessionTitle && (
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-xs text-slate-300 font-medium truncate">{sessionTitle}</span>
+              <span className="ml-auto text-[10px] font-mono text-slate-500">
+                {flatFollowUps!.length} follow-up{flatFollowUps!.length > 1 ? "s" : ""}
+              </span>
+            </div>
+          )}
+          <div className="space-y-2">
+            {flatFollowUps!.map((fu, i) => (
+              <FollowUpItem key={i} fu={fu} idx={i} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {hasRound && (
       <div className="space-y-5">
         {questions.map((q, idx) => {
           const qFollowUps = followUps[String(idx)] || [];
@@ -105,6 +128,7 @@ export default function FollowUpPanel({ followUps, questions }: FollowUpPanelPro
           );
         })}
       </div>
+      )}
     </Card>
   );
 }

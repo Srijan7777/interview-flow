@@ -95,27 +95,74 @@ Respond with ONLY valid JSON matching this schema:
 
 function buildHLDPrompt(params: {
   title: string;
+  problemContext: string;
   requirements: string[];
   diagramDescription: string;
   experience: string;
   timeTakenMinutes: number;
 }): string {
-  return `You are a principal engineer evaluating a FAANG system design interview.
+  const expYears = parseInt(params.experience) || 0;
+  const expBand =
+    expYears <= 1
+      ? "entry-level (0-1 yrs): grade as a new grad; reward any reasonable architecture, do not expect deep distributed-systems mastery"
+      : expYears <= 3
+      ? "junior (2-3 yrs): grade against SDE II bar; reward concrete tech choices and basic capacity estimates"
+      : expYears <= 6
+      ? "mid-senior (4-6 yrs): grade against Senior SDE bar; expect trade-off discussion, failure modes, and scaling math"
+      : "senior+ (7+ yrs): grade against Staff bar; expect deep dives, cross-cutting concerns, multi-region thinking";
+
+  return `You are a SUPPORTIVE principal engineer running a FAANG mock system design interview.
+
+Your goal: encourage candidates and accurately reward strong designs. Be LENIENT but honest.
+This is practice, not a real interview - we want the candidate to leave motivated to keep practicing.
 
 ## Candidate Profile
-- Experience: ${params.experience} years
+- Experience: ${params.experience} years → ${expBand}
 - Time taken: ${params.timeTakenMinutes} min
+
+## Scoring Guide (calibrate to candidate's experience band above)
+- 10 = production-ready design at staff+ level (reserved for exceptional answers)
+- 9 = senior bar: all reqs covered with concrete tech + numbers + trade-offs
+- 8 = solid mid bar: all reqs addressed, some hand-waving acceptable
+- 7 = adequate: 1-2 reqs partially covered, missing depth in places
+- 6 = passing: most reqs touched, lacks specificity
+- 5 or below = significant gaps or wrong approach
+
+## What to reward (do NOT deduct for missing these)
+- Concrete tech choices (named DBs, message queues, caches)
+- Capacity numbers (QPS, storage, latency budgets)
+- Failure modes and mitigations
+- Trade-off discussion (consistency vs availability, cost vs latency)
+- Deep dives on bottlenecks
+- API design or data model details
+- Text-only diagrams ARE fine — do NOT deduct for lack of visual diagrams
+
+## What to deduct for (be specific)
+- Missing or mis-addressed requirements (cite which one)
+- Wrong tech for the use case (justify why wrong)
+- Internally inconsistent design (e.g. claims strong consistency but uses eventually-consistent store)
+
+## Experience-aware bonus
+- For entry/junior bands, ADD +1 to overall if the design shows clear thinking even if missing depth.
+- For senior+ band, do NOT inflate — they should meet the senior bar.
 
 ## System Design Prompt
 ${params.title}
 
-## Requirements
-${params.requirements.map((r) => `- ${r}`).join("\n")}
+## Problem Context
+${params.problemContext}
+
+## Requirements (grading rubric — these are what MUST be addressed)
+${params.requirements.map((r, i) => `${i + 1}. ${r}`).join("\n")}
 
 ## Candidate's Design
 ${params.diagramDescription}
 
-Evaluate strictly. Rate correctness, efficiency, clarity, completeness.
+## Follow-up questions
+Generate 4-6 follow-up questions a real interviewer would ask based on the candidate's design.
+- Mix easy/medium/hard
+- Probe gaps you identified, OR push deeper on what they covered well
+- Each follow-up should have a one-line hint to nudge their thinking
 
 Respond with ONLY valid JSON:
 {
@@ -141,7 +188,10 @@ Respond with ONLY valid JSON:
     "shouldRetry": <boolean>,
     "suggestedTopics": ["<topic1>", "<topic2>"],
     "nextDifficulty": "easy"|"medium"|"hard"
-  }
+  },
+  "followUps": [
+    { "question": "<interviewer follow-up Q>", "difficulty": "easy"|"medium"|"hard", "hint": "<one-line hint>" }
+  ]
 }`;
 }
 
@@ -183,6 +233,7 @@ export async function generateDSAReportGroq(params: {
 
 export async function generateHLDReportGroq(params: {
   title: string;
+  problemContext: string;
   requirements: string[];
   diagramDescription: string;
   experience: string;
@@ -213,6 +264,7 @@ export async function generateHLDReportGroq(params: {
     missing: parsed.missing,
     optimalApproach: parsed.optimalApproach,
     recommendation: parsed.recommendation,
+    interviewerFollowUps: Array.isArray(parsed.followUps) ? parsed.followUps : [],
     reference: params.referenceUrl
       ? { url: params.referenceUrl, label: params.referenceLabel || "Reference" }
       : undefined,

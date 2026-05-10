@@ -127,6 +127,7 @@ export interface SessionReport {
     url: string;
     label: string;
   };
+  interviewerFollowUps?: FollowUp[];
 }
 
 export interface SessionStartPayload {
