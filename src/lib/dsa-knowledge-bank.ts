@@ -47,16 +47,25 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
   version: 1,
   rotation: [
     "arrays-and-hashing",
-    "stack",
-    "sliding-window",
+    "strings",
     "two-pointers",
-    "intervals",
+    "sliding-window",
     "binary-search",
+    "stack",
+    "linked-list",
+    "binary-tree",
+    "bst",
     "heap",
     "graphs",
-    "dynamic-programming",
-    "design",
     "trie",
+    "dynamic-programming",
+    "greedy",
+    "recursion",
+    "backtracking",
+    "bit-manipulation",
+    "math",
+    "intervals",
+    "design",
   ],
   selectionRules: [
     "Prefer canonical big-tech staples with stable problem statements.",
@@ -872,6 +881,7 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         },
       ],
     },
+    // === INGEST_MARKER === (do not remove — used by scripts/ingest-striver-sde.ts to splice new entries)
   ],
 };
 
