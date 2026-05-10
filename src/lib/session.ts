@@ -246,6 +246,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Google", "Meta", "Microsoft"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/distributed-rate-limiter",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "typeahead-autocomplete",
@@ -260,6 +262,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Uber", "Microsoft", "Google"],
+    referenceUrl: "https://systemdesignschool.io/problems/typeahead/solution",
+    referenceLabel: "System Design School",
   },
   {
     id: "distributed-job-scheduler",
@@ -274,6 +278,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Amazon", "Microsoft"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/job-scheduler",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "game-leaderboard",
@@ -288,6 +294,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Meta", "Roblox", "Snapchat"],
+    referenceUrl: "https://redis.io/tutorials/howtos/leaderboard/",
+    referenceLabel: "Redis Labs",
   },
   {
     id: "hashtag-metrics-aggregator",
@@ -302,6 +310,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Google", "Meta", "Twitter"],
+    referenceUrl: "https://mecha-mind.medium.com/system-design-top-k-trending-hashtags-4e12de5bb846",
+    referenceLabel: "Top-K Hashtags Article",
   },
   {
     id: "online-auction",
@@ -316,6 +326,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Meta", "eBay", "Amazon"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/online-auction",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "log-analytics-service",
@@ -330,6 +342,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Amazon", "Microsoft", "Datadog"],
+    referenceUrl: "https://www.splunk.com/en_us/blog/devops/debugging-microservices-with-distributed-tracing-and-real-time-log-analytics.html",
+    referenceLabel: "Splunk Blog",
   },
   {
     id: "ad-frequency-capping",
@@ -344,6 +358,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Netflix", "Meta", "Google"],
+    referenceUrl: "https://netflixtechblog.com/behind-the-scenes-building-a-robust-ads-event-processing-pipeline-e4e86caf9249",
+    referenceLabel: "Netflix Tech Blog",
   },
   {
     id: "viewing-history-service",
@@ -358,6 +374,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Netflix", "Google", "Amazon"],
+    referenceUrl: "https://netflixtechblog.com/netflixs-viewing-data-how-we-know-where-you-are-in-house-of-cards-608dd61077da",
+    referenceLabel: "Netflix Tech Blog",
   },
   {
     id: "mobile-model-quota",
@@ -372,6 +390,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Apple", "OpenAI", "Anthropic"],
+    referenceUrl: "https://www.truefoundry.com/blog/rate-limiting-in-llm-gateway",
+    referenceLabel: "TrueFoundry",
   },
   {
     id: "secure-copilot-api",
@@ -386,6 +406,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Microsoft", "GitHub", "Anthropic"],
+    referenceUrl: "https://www.solo.io/blog/protect-your-ai-powered-apps-with-tiered-rate-limiting-in-gloo-ai-gateway",
+    referenceLabel: "Solo.io",
   },
   {
     id: "org-chart-subordinate-count",
@@ -400,6 +422,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "medium" as const,
     companies: ["Microsoft", "Workday", "Meta"],
+    referenceUrl: "https://creately.com/guides/hierarchical-structure-org-charts/",
+    referenceLabel: "Creately Guide",
   },
   // --- HARD ---
   {
@@ -415,6 +439,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Amazon", "Google", "Microsoft"],
+    referenceUrl: "https://aws.amazon.com/s3/",
+    referenceLabel: "AWS S3",
   },
   {
     id: "key-management-service",
@@ -429,6 +455,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Google", "Amazon", "Microsoft"],
+    referenceUrl: "https://docs.aws.amazon.com/kms/latest/cryptographic-details/design-goals.html",
+    referenceLabel: "AWS KMS Docs",
   },
   {
     id: "distributed-kv-store",
@@ -443,6 +471,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Amazon", "Google", "Apple"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/deep-dives/dynamodb",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "pubsub-replay-kafka",
@@ -457,6 +487,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Google", "LinkedIn", "Confluent"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/deep-dives/kafka",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "radius-top-k-search",
@@ -471,6 +503,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Meta", "Uber", "Yelp"],
+    referenceUrl: "https://www.hellointerview.com/learn/system-design/problem-breakdowns/yelp",
+    referenceLabel: "Hello Interview",
   },
   {
     id: "iot-telemetry-pipeline",
@@ -485,6 +519,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Amazon", "Google", "Tesla"],
+    referenceUrl: "https://aws.amazon.com/solutions/guidance/aws-iot-greengrass-foundations/",
+    referenceLabel: "AWS IoT Guidance",
   },
   {
     id: "globally-consistent-metadata",
@@ -499,6 +535,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Google", "Amazon", "CockroachDB"],
+    referenceUrl: "https://research.google/pubs/spanner-googles-globally-distributed-database-2/",
+    referenceLabel: "Google Spanner Paper",
   },
   {
     id: "crash-resilient-file-system",
@@ -513,6 +551,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Netflix", "Google", "Meta"],
+    referenceUrl: "https://research.google/pubs/the-google-file-system/",
+    referenceLabel: "Google GFS Paper",
   },
   {
     id: "near-duplicate-video-detection",
@@ -527,6 +567,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Google", "Meta", "TikTok"],
+    referenceUrl: "https://support.google.com/youtube/answer/2797370",
+    referenceLabel: "YouTube Content ID",
   },
   {
     id: "ads-audience-targeting",
@@ -541,6 +583,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Netflix", "Meta", "Google"],
+    referenceUrl: "https://engineering.fb.com/2024/12/02/production-engineering/meta-andromeda-advantage-automation-next-gen-personalized-ads-retrieval-engine/",
+    referenceLabel: "Engineering at Meta",
   },
   {
     id: "llm-serving",
@@ -555,6 +599,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Microsoft", "Anthropic", "OpenAI"],
+    referenceUrl: "https://blog.vllm.ai/2023/06/20/vllm.html",
+    referenceLabel: "vLLM Blog",
   },
   {
     id: "sandboxed-cloud-ide",
@@ -569,6 +615,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Replit", "GitHub", "Microsoft"],
+    referenceUrl: "https://firecracker-microvm.github.io/",
+    referenceLabel: "Firecracker MicroVM",
   },
   {
     id: "hosted-notebook-platform",
@@ -583,6 +631,8 @@ export const HLD_PROMPTS = [
     ],
     difficulty: "hard" as const,
     companies: ["Databricks", "Snowflake", "Google"],
+    referenceUrl: "https://www.databricks.com/blog/2022/06/25/software-engineering-best-practices-with-databricks-notebooks.html",
+    referenceLabel: "Databricks Blog",
   },
 ];
 
