@@ -129,17 +129,66 @@ export async function POST(request: NextRequest) {
         });
       }
 
-      return Response.json({
-        passed: 0,
-        total: curatedProblem.canonicalCases.length,
-        results: curatedProblem.canonicalCases.map((testCase, index) => ({
-          testCase: index + 1,
-          label: testCase.label,
-          passed: false,
-          expected: testCase.output,
-          error: "Auto-check not available for this curated problem yet.",
-        })),
-      } as TestResult);
+      // No auto-test harness for this problem yet → compile-only check.
+      // Send the code to Judge0 with empty stdin; report any compile error.
+      try {
+        const compileRun = await executeWithJudge0(languageId, code, "");
+        const compileFailed =
+          compileRun.status_id === 6 || // 6 = Compilation Error
+          !!compileRun.compile_output?.trim();
+
+        if (compileFailed) {
+          return Response.json({
+            ok: false,
+            reviewOnly: true,
+            passed: 0,
+            total: 1,
+            results: [
+              {
+                testCase: 1,
+                label: "Compilation",
+                passed: false,
+                expected: "Code compiles successfully",
+                error: (compileRun.compile_output || compileRun.stderr || "Compilation error").trim(),
+              },
+            ],
+          } as TestResult & { ok: boolean; reviewOnly: boolean });
+        }
+
+        // Compiles OK — surface canonical cases as reference, no auto-check.
+        return Response.json({
+          ok: true,
+          reviewOnly: true,
+          message:
+            "Code compiles. No auto-check available for this problem — AI grades at submit.",
+          passed: 0,
+          total: curatedProblem.canonicalCases.length,
+          results: curatedProblem.canonicalCases.map((testCase, index) => ({
+            testCase: index + 1,
+            label: testCase.label,
+            passed: false,
+            expected: testCase.output,
+            error: "Compile-only mode — verify manually against sample inputs.",
+          })),
+        } as TestResult & { ok: boolean; reviewOnly: boolean });
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : String(err);
+        return Response.json({
+          ok: false,
+          reviewOnly: true,
+          passed: 0,
+          total: 1,
+          results: [
+            {
+              testCase: 1,
+              label: "Compilation",
+              passed: false,
+              expected: "Code compiles successfully",
+              error: `Compile check failed: ${msg}`,
+            },
+          ],
+        } as TestResult & { ok: boolean; reviewOnly: boolean });
+      }
     }
 
     // Get harness for this language/problem once, outside the loop

@@ -896,7 +896,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"babad\"", output: "\"bab\"" },
+        { label: "Example 2", input: "s = \"cbbd\"", output: "\"bb\"" },
+      ],
     },
     {
       problem: {
@@ -913,7 +916,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [3,9,20,null,null,15,7]", output: "[[9],[3,15],[20],[7]]" },
+        { label: "Example 2", input: "root = [1,2,3,4,5,6,7]", output: "[[4],[2],[1,5,6],[3],[7]]" },
+        { label: "Example 3", input: "root = [1,2,3,4,6,5,7]", output: "[[4],[2],[1,5,6],[3],[7]]" },
+      ],
     },
     {
       problem: {
@@ -930,7 +937,13 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium strings problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"42\"", output: "42" },
+        { label: "Example 2", input: "s = \" -042\"", output: "-42" },
+        { label: "Example 3", input: "s = \"1337c0d3\"", output: "1337" },
+        { label: "Example 4", input: "s = \"0-1\"", output: "0" },
+        { label: "Example 5", input: "s = \"words and 987\"", output: "0" },
+      ],
     },
     {
       problem: {
@@ -947,7 +960,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium graphs problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "grid = [[2,1,1],[1,1,0],[0,1,1]]", output: "4" },
+        { label: "Example 2", input: "grid = [[2,1,1],[0,1,1],[1,0,1]]", output: "-1" },
+        { label: "Example 3", input: "grid = [[0,2]]", output: "0" },
+      ],
     },
     {
       problem: {
@@ -964,7 +981,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy strings problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"III\"", output: "3" },
+        { label: "Example 2", input: "s = \"LVIII\"", output: "58" },
+        { label: "Example 3", input: "s = \"MCMXCIV\"", output: "1994" },
+      ],
     },
     {
       problem: {
@@ -981,7 +1002,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy trie problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "strs = [\"flower\",\"flow\",\"flight\"]", output: "\"fl\"" },
+        { label: "Example 2", input: "strs = [\"dog\",\"racecar\",\"car\"]", output: "\"\"" },
+      ],
     },
     {
       problem: {
@@ -998,7 +1022,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [-1,0,1,2,-1,-4]", output: "[[-1,-1,2],[-1,0,1]]" },
+        { label: "Example 2", input: "nums = [0,1,1]", output: "[]" },
+        { label: "Example 3", input: "nums = [0,0,0]", output: "[[0,0,0]]" },
+      ],
     },
     {
       problem: {
@@ -1015,7 +1043,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,0,-1,0,-2,2], target = 0", output: "[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]" },
+        { label: "Example 2", input: "nums = [2,2,2,2,2], target = 8", output: "[[2,2,2,2]]" },
+      ],
     },
     {
       problem: {
@@ -1032,7 +1063,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [1,2,3,4,5], n = 2", output: "[1,2,3,5]" },
+        { label: "Example 2", input: "head = [1], n = 1", output: "[]" },
+        { label: "Example 3", input: "head = [1,2], n = 1", output: "[1]" },
+      ],
     },
     {
       problem: {
@@ -1049,7 +1084,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [1,2,3,4,5], k = 2", output: "[2,1,4,3,5]" },
+        { label: "Example 2", input: "head = [1,2,3,4,5], k = 3", output: "[3,2,1,4,5]" },
+      ],
     },
     {
       problem: {
@@ -1066,7 +1104,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,1,2]", output: "2, nums = [1,2,_]" },
+        { label: "Example 2", input: "nums = [0,0,1,1,1,2,2,3,3,4]", output: "5, nums = [0,1,2,3,4,_,_,_,_,_]" },
+      ],
     },
     {
       problem: {
@@ -1083,7 +1124,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "preorder = [8,5,1,7,10,12]", output: "[8,5,10,1,7,null,12]" },
+        { label: "Example 2", input: "preorder = [1,3]", output: "[1,null,3]" },
+      ],
     },
     {
       problem: {
@@ -1100,7 +1144,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "haystack = \"sadbutsad\", needle = \"sad\"", output: "0" },
+        { label: "Example 2", input: "haystack = \"leetcode\", needle = \"leeto\"", output: "-1" },
+      ],
     },
     {
       problem: {
@@ -1117,7 +1164,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,2,3]", output: "[1,3,2]" },
+        { label: "Example 2", input: "nums = [3,2,1]", output: "[1,2,3]" },
+        { label: "Example 3", input: "nums = [1,1,5]", output: "[1,5,1]" },
+      ],
     },
     {
       problem: {
@@ -1134,7 +1185,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,3,4,5]", output: "3" },
+        { label: "Example 2", input: "root = [1,2]", output: "1" },
+      ],
     },
     {
       problem: {
@@ -1151,7 +1205,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard backtracking problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "board = [[\"5\",\"3\",\".\",\".\",\"7\",\".\",\".\",\".\",\".\"],[\"6\",\".\",\".\",\"1\",\"9\",\"5\",\".\",\".\",\".\"],[\".\",\"9\",\"8\",\".\",\".\",\".\",\".\",\"6\",\".\"],[\"8\",\".\",\".\",\".\",\"6\",\".\",\".\",\".\",\"3\"],[\"4\",\".\",\".\",\"8\",\".\",\"3\",\".\",\".\",\"1\"],[\"7\",\".\",\".\",\".\",\"2\",\".\",\".\",\".\",\"6\"],[\".\",\"6\",\".\",\".\",\".\",\".\",\"2\",\"8\",\".\"],[\".\",\".\",\".\",\"4\",\"1\",\"9\",\".\",\".\",\"5\"],[\".\",\".\",\".\",\".\",\"8\",\".\",\".\",\"7\",\"9\"]]", output: "[[\"5\",\"3\",\"4\",\"6\",\"7\",\"8\",\"9\",\"1\",\"2\"],[\"6\",\"7\",\"2\",\"1\",\"9\",\"5\",\"3\",\"4\",\"8\"],[\"1\",\"9\",\"8\",\"3\",\"4\",\"2\",\"5\",\"6\",\"7\"],[\"8\",\"5\",\"9\",\"7\",\"6\",\"1\",\"4\",\"2\",\"3\"],[\"4\",\"2\",\"6\",\"8\",\"5\",\"3\",\"7\",\"9\",\"1\"],[\"7\",\"1\",\"3\",\"9\",\"2\",\"4\",\"8\",\"5\",\"6\"],[\"9\",\"6\",\"1\",\"5\",\"3\",\"7\",\"2\",\"8\",\"4\"],[\"2\",\"8\",\"7\",\"4\",\"1\",\"9\",\"6\",\"3\",\"5\"],[\"3\",\"4\",\"5\",\"2\",\"8\",\"6\",\"1\",\"7\",\"9\"]]" },
+      ],
     },
     {
       problem: {
@@ -1168,7 +1224,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium strings problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "n = 4", output: "\"1211\"" },
+        { label: "Example 2", input: "n = 1", output: "\"1\"" },
+      ],
     },
     {
       problem: {
@@ -1185,7 +1244,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium backtracking problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "candidates = [10,1,2,7,6,1,5], target = 8", output: "[ [1,1,6], [1,2,5], [1,7], [2,6] ]" },
+        { label: "Example 2", input: "candidates = [2,5,2,1,2], target = 5", output: "[ [1,2,2], [5] ]" },
+      ],
     },
     {
       problem: {
@@ -1202,7 +1264,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "height = [0,1,0,2,1,0,1,3,2,1,2,1]", output: "6" },
+        { label: "Example 2", input: "height = [4,2,0,3,2,5]", output: "9" },
+      ],
     },
     {
       problem: {
@@ -1219,7 +1284,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium math problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "matrix = [[1,2,3],[4,5,6],[7,8,9]]", output: "[[7,4,1],[8,5,2],[9,6,3]]" },
+        { label: "Example 2", input: "matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]", output: "[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]" },
+      ],
     },
     {
       problem: {
@@ -1236,7 +1304,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium recursion problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "x = 2.00000, n = 10", output: "1024.00000" },
+        { label: "Example 2", input: "x = 2.10000, n = 3", output: "9.26100" },
+        { label: "Example 3", input: "x = 2.00000, n = -2", output: "0.25000" },
+      ],
     },
     {
       problem: {
@@ -1253,7 +1325,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard backtracking problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "n = 4", output: "[[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]" },
+        { label: "Example 2", input: "n = 1", output: "[[\"Q\"]]" },
+      ],
     },
     {
       problem: {
@@ -1270,7 +1345,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [-2,1,-3,4,-1,2,1,-5,4]", output: "6" },
+        { label: "Example 2", input: "nums = [1]", output: "1" },
+        { label: "Example 3", input: "nums = [5,4,-1,7,8]", output: "23" },
+      ],
     },
     {
       problem: {
@@ -1287,7 +1366,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard recursion problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "n = 3, k = 3", output: "\"213\"" },
+        { label: "Example 2", input: "n = 4, k = 9", output: "\"2314\"" },
+        { label: "Example 3", input: "n = 3, k = 1", output: "\"123\"" },
+      ],
     },
     {
       problem: {
@@ -1304,7 +1387,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [1,2,3,4,5], k = 2", output: "[4,5,1,2,3]" },
+        { label: "Example 2", input: "head = [0,1,2], k = 4", output: "[2,0,1]" },
+      ],
     },
     {
       problem: {
@@ -1321,7 +1407,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "m = 3, n = 7", output: "28" },
+        { label: "Example 2", input: "m = 3, n = 2", output: "3" },
+      ],
     },
     {
       problem: {
@@ -1338,7 +1427,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "grid = [[1,3,1],[1,5,1],[4,2,1]]", output: "7" },
+        { label: "Example 2", input: "grid = [[1,2,3],[4,5,6]]", output: "12" },
+      ],
     },
     {
       problem: {
@@ -1355,7 +1447,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "word1 = \"horse\", word2 = \"ros\"", output: "3" },
+        { label: "Example 2", input: "word1 = \"intention\", word2 = \"execution\"", output: "5" },
+      ],
     },
     {
       problem: {
@@ -1372,7 +1467,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium arrays-and-hashing problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "matrix = [[1,1,1],[1,0,1],[1,1,1]]", output: "[[1,0,1],[0,0,0],[1,0,1]]" },
+        { label: "Example 2", input: "matrix = [[0,1,2,0],[3,4,5,2],[1,3,1,5]]", output: "[[0,0,0,0],[0,4,5,0],[0,3,1,0]]" },
+      ],
     },
     {
       problem: {
@@ -1389,7 +1487,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium binary-search problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3", output: "true" },
+        { label: "Example 2", input: "matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 13", output: "false" },
+      ],
     },
     {
       problem: {
@@ -1406,7 +1507,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [2,0,2,1,1,0]", output: "[0,0,1,1,2,2]" },
+        { label: "Example 2", input: "nums = [2,0,1]", output: "[0,1,2]" },
+      ],
     },
     {
       problem: {
@@ -1423,7 +1527,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard stack problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "heights = [2,1,5,6,2,3]", output: "10" },
+        { label: "Example 2", input: "heights = [2,4]", output: "4" },
+      ],
     },
     {
       problem: {
@@ -1440,7 +1547,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3", output: "[1,2,2,3,5,6]" },
+        { label: "Example 2", input: "nums1 = [1], m = 1, nums2 = [], n = 0", output: "[1]" },
+        { label: "Example 3", input: "nums1 = [0], m = 0, nums2 = [1], n = 1", output: "[1]" },
+      ],
     },
     {
       problem: {
@@ -1457,7 +1568,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium backtracking problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,2,2]", output: "[[],[1],[1,2],[1,2,2],[2],[2,2]]" },
+        { label: "Example 2", input: "nums = [0]", output: "[[],[0]]" },
+      ],
     },
     {
       problem: {
@@ -1474,7 +1588,12 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,null,2,3]", output: "[1,3,2]" },
+        { label: "Example 2", input: "root = [1,2,3,4,5,null,8,null,null,6,7,9]", output: "[4,2,6,5,7,1,3,9,8]" },
+        { label: "Example 3", input: "root = []", output: "[] Example 4:" },
+        { label: "Example 4", input: "root = [1]", output: "[1] Constraints: The number of nodes in the tree is in the range [0, 100]. -100 <= Node.val <= 100 Follow up: Recursive solution is trivial, could you do it iteratively?" },
+      ],
     },
     {
       problem: {
@@ -1491,7 +1610,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "p = [1,2,3], q = [1,2,3]", output: "true" },
+        { label: "Example 2", input: "p = [1,2], q = [1,null,2]", output: "false" },
+        { label: "Example 3", input: "p = [1,2,1], q = [1,1,2]", output: "false" },
+      ],
     },
     {
       problem: {
@@ -1508,7 +1631,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,2,3,4,4,3]", output: "true" },
+        { label: "Example 2", input: "root = [1,2,2,null,3,null,3]", output: "false" },
+      ],
     },
     {
       problem: {
@@ -1525,7 +1651,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [3,9,20,null,null,15,7]", output: "[[3],[20,9],[15,7]]" },
+        { label: "Example 2", input: "root = [1]", output: "[[1]]" },
+        { label: "Example 3", input: "root = []", output: "[]" },
+      ],
     },
     {
       problem: {
@@ -1542,7 +1672,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [3,9,20,null,null,15,7]", output: "3" },
+        { label: "Example 2", input: "root = [1,null,2]", output: "2" },
+      ],
     },
     {
       problem: {
@@ -1559,7 +1692,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "preorder = [3,9,20,15,7], inorder = [9,3,15,20,7]", output: "[3,9,20,null,null,15,7]" },
+        { label: "Example 2", input: "preorder = [-1], inorder = [-1]", output: "[-1]" },
+      ],
     },
     {
       problem: {
@@ -1576,7 +1712,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "inorder = [9,3,15,20,7], postorder = [9,15,7,20,3]", output: "[3,9,20,null,null,15,7]" },
+        { label: "Example 2", input: "inorder = [-1], postorder = [-1]", output: "[-1]" },
+      ],
     },
     {
       problem: {
@@ -1593,7 +1732,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [-10,-3,0,5,9]", output: "[0,-3,9,-10,null,5]" },
+        { label: "Example 2", input: "nums = [1,3]", output: "[3,1]" },
+      ],
     },
     {
       problem: {
@@ -1610,7 +1752,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard greedy problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"adefaddaccc\"", output: "[\"e\",\"f\",\"ccc\"] Explanation: The following are all the possible substrings that meet the conditions: [ \"adefaddaccc\" \"adefadda\", \"ef\", \"e\", \"f\", \"ccc\", ] If we choose the first string, we cannot choose anything else and we'd get only 1. If we choose \"adefadda\", we are left with \"ccc\" which is the only one that doesn't overlap, thus obtaining 2 substrings. Notice also, that it's not optimal to choose \"ef\" since it can be split into two. Therefore, the optimal way is to choose [\"e\",\"f\",\"ccc\"] which gives us 3 substrings. No other solution of the same number of substrings exist." },
+        { label: "Example 2", input: "s = \"abbaccd\"", output: "[\"d\",\"bb\",\"cc\"] Explanation: Notice that while the set of substrings [\"d\",\"abba\",\"cc\"] also has length 3, it's considered incorrect since it has larger total length." },
+      ],
     },
     {
       problem: {
@@ -1627,7 +1772,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [3,9,20,null,null,15,7]", output: "true" },
+        { label: "Example 2", input: "root = [1,2,2,3,3,null,null,4,4]", output: "false" },
+        { label: "Example 3", input: "root = []", output: "true" },
+      ],
     },
     {
       problem: {
@@ -1644,7 +1793,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,5,3,4,null,6]", output: "[1,null,2,null,3,null,4,null,5,null,6]" },
+        { label: "Example 2", input: "root = []", output: "[]" },
+        { label: "Example 3", input: "root = [0]", output: "[0]" },
+      ],
     },
     {
       problem: {
@@ -1661,7 +1814,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,3,4,5,6,7]", output: "[1,#,2,3,#,4,5,6,7,#]" },
+        { label: "Example 2", input: "root = []", output: "[]" },
+      ],
     },
     {
       problem: {
@@ -1678,7 +1834,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "numRows = 5", output: "[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]" },
+        { label: "Example 2", input: "numRows = 1", output: "[[1]]" },
+      ],
     },
     {
       problem: {
@@ -1695,7 +1854,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,3]", output: "6" },
+        { label: "Example 2", input: "root = [-10,9,20,null,null,15,7]", output: "42" },
+      ],
     },
     {
       problem: {
@@ -1712,7 +1874,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium arrays-and-hashing problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [100,4,200,1,3,2]", output: "4" },
+        { label: "Example 2", input: "nums = [0,3,7,2,5,8,4,6,0,1]", output: "9" },
+        { label: "Example 3", input: "nums = [1,0,1,2]", output: "3" },
+      ],
     },
     {
       problem: {
@@ -1729,7 +1895,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"aab\"", output: "[[\"a\",\"a\",\"b\"],[\"aa\",\"b\"]]" },
+        { label: "Example 2", input: "s = \"a\"", output: "[[\"a\"]]" },
+      ],
     },
     {
       problem: {
@@ -1746,7 +1915,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium graphs problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "adjList = [[2,4],[1,3],[2,4],[1,3]]", output: "[[2,4],[1,3],[2,4],[1,3]]" },
+        { label: "Example 2", input: "adjList = [[]]", output: "[[]]" },
+        { label: "Example 3", input: "adjList = []", output: "[]" },
+      ],
     },
     {
       problem: {
@@ -1763,7 +1936,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy bit-manipulation problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,2,2,4]", output: "[2,3]" },
+        { label: "Example 2", input: "nums = [1,1]", output: "[1,2]" },
+      ],
     },
     {
       problem: {
@@ -1780,7 +1956,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "n = 7, cuts = [1,3,4,5]", output: "16" },
+        { label: "Example 2", input: "n = 9, cuts = [5,6,1,4,2]", output: "22" },
+      ],
     },
     {
       problem: {
@@ -1797,7 +1976,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [[7,null],[13,0],[11,4],[10,2],[1,0]]", output: "[[7,null],[13,0],[11,4],[10,2],[1,0]]" },
+        { label: "Example 2", input: "head = [[1,1],[2,1]]", output: "[[1,1],[2,1]]" },
+        { label: "Example 3", input: "head = [[3,null],[3,0],[3,null]]", output: "[[3,null],[3,0],[3,null]]" },
+      ],
     },
     {
       problem: {
@@ -1814,7 +1997,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [3,2,0,-4], pos = 1", output: "tail connects to node index 1" },
+        { label: "Example 2", input: "head = [1,2], pos = 0", output: "tail connects to node index 0" },
+        { label: "Example 3", input: "head = [1], pos = -1", output: "no cycle" },
+      ],
     },
     {
       problem: {
@@ -1831,7 +2018,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [5,3,6,2,4,null,7], k = 9", output: "true" },
+        { label: "Example 2", input: "root = [5,3,6,2,4,null,7], k = 28", output: "false" },
+      ],
     },
     {
       problem: {
@@ -1848,7 +2038,12 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,null,2,3]", output: "[1,2,3]" },
+        { label: "Example 2", input: "root = [1,2,3,4,5,null,8,null,null,6,7,9]", output: "[1,2,4,5,6,7,3,8,9]" },
+        { label: "Example 3", input: "root = []", output: "[] Example 4:" },
+        { label: "Example 4", input: "root = [1]", output: "[1] Constraints: The number of nodes in the tree is in the range [0, 100]. -100 <= Node.val <= 100 Follow up: Recursive solution is trivial, could you do it iteratively?" },
+      ],
     },
     {
       problem: {
@@ -1865,7 +2060,12 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,null,2,3]", output: "[3,2,1]" },
+        { label: "Example 2", input: "root = [1,2,3,4,5,null,8,null,null,6,7,9]", output: "[4,6,7,5,2,9,8,3,1]" },
+        { label: "Example 3", input: "root = []", output: "[] Example 4:" },
+        { label: "Example 4", input: "root = [1]", output: "[1] Constraints: The number of the nodes in the tree is in the range [0, 100]. -100 <= Node.val <= 100 Follow up: Recursive solution is trivial, could you do it iteratively?" },
+      ],
     },
     {
       problem: {
@@ -1882,7 +2082,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,3,2,5,3,null,9]", output: "4" },
+        { label: "Example 2", input: "root = [1,3,2,5,null,null,9,6,null,7]", output: "7" },
+        { label: "Example 3", input: "root = [1,3,2,5]", output: "2" },
+      ],
     },
     {
       problem: {
@@ -1899,7 +2103,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"the sky is blue\"", output: "\"blue is sky the\"" },
+        { label: "Example 2", input: "s = \" hello world \"", output: "\"world hello\"" },
+        { label: "Example 3", input: "s = \"a good example\"", output: "\"example good a\"" },
+      ],
     },
     {
       problem: {
@@ -1916,7 +2124,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [2,3,-2,4]", output: "6" },
+        { label: "Example 2", input: "nums = [-2,0,-1]", output: "0" },
+      ],
     },
     {
       problem: {
@@ -1933,7 +2144,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3", output: "Intersected at '8'" },
+        { label: "Example 2", input: "intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1", output: "Intersected at '2'" },
+        { label: "Example 3", input: "intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2", output: "No intersection" },
+      ],
     },
     {
       problem: {
@@ -1950,7 +2165,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium two-pointers problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "version1 = \"1.2\", version2 = \"1.10\"", output: "-1" },
+        { label: "Example 2", input: "version1 = \"1.01\", version2 = \"1.001\"", output: "0" },
+        { label: "Example 3", input: "version1 = \"1.0\", version2 = \"1.0.0.0\"", output: "0" },
+      ],
     },
     {
       problem: {
@@ -1967,7 +2186,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy arrays-and-hashing problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [3,2,3]", output: "3" },
+        { label: "Example 2", input: "nums = [2,2,1,1,1,2,2]", output: "2" },
+      ],
     },
     {
       problem: {
@@ -1984,7 +2206,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"BSTIterator\", \"next\", \"next\", \"hasNext\", \"next\", \"hasNext\", \"next\", \"hasNext\", \"next\", \"hasNext\"] [[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]", output: "[null, 3, 7, true, 9, true, 15, true, 20, false]" },
+      ],
     },
     {
       problem: {
@@ -2001,7 +2225,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium strings problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "a = \"abcd\", b = \"cdabcdab\"", output: "3" },
+        { label: "Example 2", input: "a = \"a\", b = \"aa\"", output: "2" },
+      ],
     },
     {
       problem: {
@@ -2018,7 +2245,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy graphs problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "image = [[1,1,1],[1,1,0],[1,0,1]], sr = 1, sc = 1, color = 2", output: "[[2,2,2],[2,2,0],[2,0,1]]" },
+        { label: "Example 2", input: "image = [[0,0,0],[0,0,0]], sr = 0, sc = 0, color = 0", output: "[[0,0,0],[0,0,0]]" },
+      ],
     },
     {
       problem: {
@@ -2035,7 +2265,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy stack problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"MyStack\", \"push\", \"push\", \"top\", \"pop\", \"empty\"] [[], [1], [2], [], [], []]", output: "[null, null, null, 2, 2, false]" },
+      ],
     },
     {
       problem: {
@@ -2052,7 +2284,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "text1 = \"abcde\", text2 = \"ace\"", output: "3" },
+        { label: "Example 2", input: "text1 = \"abc\", text2 = \"abc\"", output: "3" },
+        { label: "Example 3", input: "text1 = \"abc\", text2 = \"def\"", output: "0" },
+      ],
     },
     {
       problem: {
@@ -2069,7 +2305,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium arrays-and-hashing problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [3,2,3]", output: "[3]" },
+        { label: "Example 2", input: "nums = [1]", output: "[1]" },
+        { label: "Example 3", input: "nums = [1,2]", output: "[1,2]" },
+      ],
     },
     {
       problem: {
@@ -2086,7 +2326,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [3,1,4,null,2], k = 1", output: "1" },
+        { label: "Example 2", input: "root = [5,3,6,2,4,null,null,1], k = 3", output: "3" },
+      ],
     },
     {
       problem: {
@@ -2103,7 +2346,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy stack problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"MyQueue\", \"push\", \"push\", \"peek\", \"pop\", \"empty\"] [[], [1], [2], [], [], []]", output: "[null, null, null, 1, 1, false]" },
+      ],
     },
     {
       problem: {
@@ -2120,7 +2365,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [1,2,2,1]", output: "true" },
+        { label: "Example 2", input: "head = [1,2]", output: "false" },
+      ],
     },
     {
       problem: {
@@ -2137,7 +2385,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8", output: "6" },
+        { label: "Example 2", input: "root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4", output: "2" },
+        { label: "Example 3", input: "root = [2,1], p = 2, q = 1", output: "2" },
+      ],
     },
     {
       problem: {
@@ -2154,7 +2406,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [4,5,1,9], node = 5", output: "[4,1,9]" },
+        { label: "Example 2", input: "head = [4,5,1,9], node = 1", output: "[4,5,9]" },
+      ],
     },
     {
       problem: {
@@ -2171,7 +2426,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy strings problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "s = \"anagram\", t = \"nagaram\"", output: "true Example 2:" },
+        { label: "Example 2", input: "s = \"rat\", t = \"car\"", output: "false Constraints: 1 <= s.length, t.length <= 5 * 104 s and t consist of lowercase English letters. Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?" },
+      ],
     },
     {
       problem: {
@@ -2188,7 +2446,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [4,2,7,1,3], val = 2", output: "[2,1,3]" },
+        { label: "Example 2", input: "root = [4,2,7,1,3], val = 5", output: "[]" },
+      ],
     },
     {
       problem: {
@@ -2205,7 +2466,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"KthLargest\", \"add\", \"add\", \"add\", \"add\", \"add\"] [[3, [4, 5, 8, 2]], [3], [5], [10], [9], [4]]", output: "[null, 4, 5, 5, 8, 8]" },
+        { label: "Example 2", input: "[\"KthLargest\", \"add\", \"add\", \"add\", \"add\"] [[4, [7, 7, 7, 7, 8, 3]], [2], [10], [9], [9]]", output: "[null, 7, 7, 7, 8]" },
+      ],
     },
     {
       problem: {
@@ -2222,7 +2486,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium bit-manipulation problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,3,4,2,2]", output: "2" },
+        { label: "Example 2", input: "nums = [3,1,3,4,2]", output: "3" },
+        { label: "Example 3", input: "nums = [3,3,3,3,3]", output: "3" },
+      ],
     },
     {
       problem: {
@@ -2239,7 +2507,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium graphs problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "graph = [[1,2,3],[0,2],[0,1,3],[0,2]]", output: "false" },
+        { label: "Example 2", input: "graph = [[1,3],[0,2],[1,3],[0,2]]", output: "true" },
+      ],
     },
     {
       problem: {
@@ -2256,7 +2527,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard trie problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [0,1,2,3,4], queries = [[3,1],[1,3],[5,6]]", output: "[3,3,7]" },
+        { label: "Example 2", input: "nums = [5,2,4,6,6,3], queries = [[12,4],[8,1],[6,3]]", output: "[15,-1,5]" },
+      ],
     },
     {
       problem: {
@@ -2273,7 +2547,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard heap problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"MedianFinder\", \"addNum\", \"addNum\", \"findMedian\", \"addNum\", \"findMedian\"] [[], [1], [2], [], [3], []]", output: "[null, null, null, 1.5, null, 2.0]" },
+      ],
     },
     {
       problem: {
@@ -2290,7 +2566,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard binary-tree problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,2,3,null,null,4,5]", output: "[1,2,3,null,null,4,5]" },
+        { label: "Example 2", input: "root = []", output: "[]" },
+      ],
     },
     {
       problem: {
@@ -2307,7 +2586,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [10,9,2,5,3,7,101,18]", output: "4" },
+        { label: "Example 2", input: "nums = [0,1,0,3,2,3]", output: "4" },
+        { label: "Example 3", input: "nums = [7,7,7,7,7,7,7]", output: "1" },
+      ],
     },
     {
       problem: {
@@ -2324,7 +2607,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "head = [1,2,3,4,5]", output: "[3,4,5]" },
+        { label: "Example 2", input: "head = [1,2,3,4,5,6]", output: "[4,5,6]" },
+      ],
     },
     {
       problem: {
@@ -2341,7 +2627,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,5,11,5]", output: "true" },
+        { label: "Example 2", input: "nums = [1,2,3,5]", output: "false" },
+      ],
     },
     {
       problem: {
@@ -2358,7 +2647,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium trie problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [3,10,5,25,2,8]", output: "28" },
+        { label: "Example 2", input: "nums = [14,70,53,83,49,91,36,80,92,51,66,70]", output: "127" },
+      ],
     },
     {
       problem: {
@@ -2375,7 +2667,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium stack problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"StockSpanner\", \"next\", \"next\", \"next\", \"next\", \"next\", \"next\", \"next\"] [[], [100], [80], [60], [70], [60], [75], [85]]", output: "[null, 1, 1, 1, 2, 1, 4, 6]" },
+      ],
     },
     {
       problem: {
@@ -2392,7 +2686,11 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard bst problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "root = [1,4,3,2,4,2,5,null,null,null,null,null,null,4,6]", output: "20" },
+        { label: "Example 2", input: "root = [4,3,null,1,2]", output: "2" },
+        { label: "Example 3", input: "root = [-4,-2,-5]", output: "0" },
+      ],
     },
     {
       problem: {
@@ -2409,7 +2707,9 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard linked-list problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "[\"LFUCache\", \"put\", \"put\", \"get\", \"put\", \"get\", \"get\", \"put\", \"get\", \"get\", \"get\"] [[2], [1, 1], [2, 2], [1], [3, 3], [2], [3], [4, 4], [1], [3], [4]]", output: "[null, null, null, 1, null, -1, 3, null, -1, 3, 4]" },
+      ],
     },
     {
       problem: {
@@ -2426,7 +2726,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · medium dynamic-programming problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "strs = [\"10\",\"0001\",\"111001\",\"1\",\"0\"], m = 5, n = 3", output: "4" },
+        { label: "Example 2", input: "strs = [\"10\",\"0\",\"1\"], m = 1, n = 1", output: "2 Explanation: The largest subset is {\"0\", \"1\"}, so the answer is 2." },
+      ],
     },
     {
       problem: {
@@ -2443,7 +2746,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy arrays-and-hashing problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,1,0,1,1,1]", output: "3" },
+        { label: "Example 2", input: "nums = [1,0,1,1,0,1]", output: "2" },
+      ],
     },
     {
       problem: {
@@ -2460,7 +2766,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · hard binary-search problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums = [1,3,2,3,1]", output: "2" },
+        { label: "Example 2", input: "nums = [2,4,3,5,1]", output: "3" },
+      ],
     },
     {
       problem: {
@@ -2477,7 +2786,10 @@ export const DSA_KNOWLEDGE_BANK: KnowledgeBank = {
         spaceComplexity: "",
       },
       interviewSignal: "Striver SDE list · easy stack problem.",
-      canonicalCases: [],
+      canonicalCases: [
+        { label: "Example 1", input: "nums1 = [4,1,2], nums2 = [1,3,4,2]", output: "[-1,3,-1]" },
+        { label: "Example 2", input: "nums1 = [2,4], nums2 = [1,2,3,4]", output: "[3,-1]" },
+      ],
     },
     // === INGEST_MARKER === (do not remove — used by scripts/ingest-striver-sde.ts to splice new entries)
   ],
