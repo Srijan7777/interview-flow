@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { roundCache } from "@/lib/round-cache";
 import { reportCache } from "@/lib/report-cache";
 import { generateRoundReport } from "@/lib/groq";
+import { generateRoundReportSamba } from "@/lib/sambanova";
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,7 +17,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const report = await generateRoundReport(round, experience);
+    // DSA round routing: SambaNova → Groq
+    const useSamba = !!process.env.SAMBANOVA_API_KEY;
+    let report;
+    if (useSamba) {
+      try {
+        report = await generateRoundReportSamba(round, experience);
+      } catch (errSamba) {
+        console.error("SambaNova round failed, falling back to Groq:", errSamba);
+        report = await generateRoundReport(round, experience);
+      }
+    } else {
+      report = await generateRoundReport(round, experience);
+    }
 
     round.status = "completed";
     roundCache.set(roundId, round);

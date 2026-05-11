@@ -1,6 +1,7 @@
 import { NextRequest } from "next/server";
 import { generateDSAReport, generateHLDReport, generateLLDReport } from "@/lib/claude";
 import { generateDSAReportGroq, generateHLDReportGroq, generateLLDReportGroq } from "@/lib/groq";
+import { generateDSAReportSamba } from "@/lib/sambanova";
 import { reportCache } from "@/lib/report-cache";
 import { SessionReport } from "@/types";
 
@@ -28,6 +29,7 @@ export async function POST(request: NextRequest) {
 
     let report: SessionReport;
     const useGroq = !!process.env.GROQ_API_KEY;
+    const useSamba = !!process.env.SAMBANOVA_API_KEY;
 
     if (type === "dsa") {
       if (!problem || !code) {
@@ -37,33 +39,33 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      if (useGroq) {
+      // DSA routing: SambaNova → Groq → Claude
+      const dsaParams = { problem, code, experience, timeTakenMinutes, allocatedMinutes };
+      if (useSamba) {
         try {
-          report = await generateDSAReportGroq({
-            problem,
-            code,
-            experience,
-            timeTakenMinutes,
-            allocatedMinutes,
-          });
+          report = await generateDSAReportSamba(dsaParams);
+        } catch (errSamba) {
+          console.error("SambaNova failed, falling back to Groq:", errSamba);
+          if (useGroq) {
+            try {
+              report = await generateDSAReportGroq(dsaParams);
+            } catch (errGroq) {
+              console.error("Groq failed, falling back to Claude:", errGroq);
+              report = await generateDSAReport(dsaParams);
+            }
+          } else {
+            report = await generateDSAReport(dsaParams);
+          }
+        }
+      } else if (useGroq) {
+        try {
+          report = await generateDSAReportGroq(dsaParams);
         } catch (err) {
           console.error("Groq failed, falling back to Claude:", err);
-          report = await generateDSAReport({
-            problem,
-            code,
-            experience,
-            timeTakenMinutes,
-            allocatedMinutes,
-          });
+          report = await generateDSAReport(dsaParams);
         }
       } else {
-        report = await generateDSAReport({
-          problem,
-          code,
-          experience,
-          timeTakenMinutes,
-          allocatedMinutes,
-        });
+        report = await generateDSAReport(dsaParams);
       }
     } else if (type === "hld") {
       if (!scenario || !diagramDescription) {
