@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, Save } from "lucide-react";
+import { AlertCircle, Save, ArrowLeft } from "lucide-react";
 import { SessionStartResponse, HLDScenario, HLDFormData } from "@/types";
 import SessionTimer from "@/components/session/SessionTimer";
 import HLDTemplate from "@/components/session/HLDTemplate";
@@ -252,7 +252,21 @@ ${excalidrawDescription}
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
       <div className="border-b border-slate-800 bg-black/50 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center gap-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() =>
+              router.push(
+                `/session/hld/read?sessionId=${sessionData.sessionId}&exp=${experience}`
+              )
+            }
+            className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            title="Back to problem statement"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            View Problem
+          </Button>
           <div className="flex-1">
             <h1 className="text-lg font-bold text-white">{scenario.title}</h1>
             <div className="flex gap-2 mt-2">

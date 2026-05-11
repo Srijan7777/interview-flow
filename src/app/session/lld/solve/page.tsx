@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { AlertCircle, UploadCloud, Code2, Loader2, CheckCircle2 } from "lucide-react";
+import { AlertCircle, UploadCloud, Code2, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
 import { SessionStartResponse } from "@/types";
 import SessionTimer from "@/components/session/SessionTimer";
 import JSZip from "jszip";
@@ -189,7 +189,21 @@ function LLDSolvePage() {
     <div className="min-h-screen bg-black flex flex-col">
       {/* Header */}
       <div className="border-b border-slate-800 bg-black/50 backdrop-blur sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center gap-4">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => {
+              const sessionId = searchParams.get("sessionId");
+              const exp = searchParams.get("exp") || "1-3";
+              router.push(`/session/lld/read?sessionId=${sessionId}&exp=${exp}`);
+            }}
+            className="border-slate-700 text-slate-300 hover:bg-slate-800"
+            title="Back to problem statement"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            View Problem
+          </Button>
           <div className="flex-1">
             <h1 className="text-lg font-bold text-white">LLD: {sessionData.lldScenario.title}</h1>
           </div>

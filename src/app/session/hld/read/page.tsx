@@ -21,8 +21,34 @@ function HLDReadPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
     const initSession = async () => {
       try {
+        // If URL has sessionId (e.g. coming back from design page), restore it
+        const existingId = searchParams.get("sessionId");
+        if (existingId) {
+          const cached = localStorage.getItem(`hld-session-${existingId}`);
+          if (cached) {
+            if (!cancelled) {
+              setSessionData(JSON.parse(cached));
+              setLoading(false);
+            }
+            return;
+          }
+          // Cached miss → try API
+          const res = await fetch(`/api/session/read?sessionId=${existingId}`);
+          if (res.ok) {
+            const data = await res.json();
+            if (!cancelled) {
+              setSessionData(data);
+              localStorage.setItem(`hld-session-${data.sessionId}`, JSON.stringify(data));
+              setLoading(false);
+            }
+            return;
+          }
+          // Fall through to creating a new session if restore failed
+        }
+
         const difficultyRaw = searchParams.get("difficulty");
         const difficulty = difficultyRaw
           ? difficultyRaw.split(",").filter(Boolean)
@@ -36,20 +62,28 @@ function HLDReadPage() {
             ...(difficulty && difficulty.length > 0 ? { difficulty } : {}),
           }),
         });
-
+        if (!response.ok) throw new Error("Failed to start session");
         const data = await response.json();
+        if (cancelled) return;
         setSessionData(data);
-        // Persist session to localStorage for design page
         localStorage.setItem(`hld-session-${data.sessionId}`, JSON.stringify(data));
+
+        // Pin sessionId in URL so back-nav restores the same scenario
+        const params = new URLSearchParams(searchParams.toString());
+        if (!params.get("sessionId")) {
+          params.set("sessionId", data.sessionId);
+          router.replace(`/session/hld/read?${params.toString()}`);
+        }
       } catch (error) {
         console.error("Failed to start session:", error);
       } finally {
-        setLoading(false);
+        if (!cancelled) setLoading(false);
       }
     };
 
     initSession();
-  }, [searchParams]);
+    return () => { cancelled = true; };
+  }, [searchParams, router]);
 
   if (loading) {
     return (
