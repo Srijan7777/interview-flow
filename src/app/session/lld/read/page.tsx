@@ -16,7 +16,7 @@ function LLDReadPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sessionData, setSessionData] = useState<SessionStartResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
 
   useEffect(() => {
     let cancelled = false;
@@ -29,7 +29,7 @@ function LLDReadPage() {
           if (cached) {
             if (!cancelled) {
               setSessionData(JSON.parse(cached));
-              setLoading(false);
+              setStatus("ready");
             }
             return;
           }
@@ -39,7 +39,7 @@ function LLDReadPage() {
             if (!cancelled) {
               setSessionData(data);
               localStorage.setItem(`lld-session-${data.sessionId}`, JSON.stringify(data));
-              setLoading(false);
+              setStatus("ready");
             }
             return;
           }
@@ -62,8 +62,10 @@ function LLDReadPage() {
         if (!response.ok) throw new Error("Failed to start session");
         const data = await response.json();
         if (cancelled) return;
+        if (!data?.lldScenario) throw new Error("Invalid session response");
         setSessionData(data);
         localStorage.setItem(`lld-session-${data.sessionId}`, JSON.stringify(data));
+        setStatus("ready");
 
         const params = new URLSearchParams(searchParams.toString());
         if (!params.get("sessionId")) {
@@ -72,8 +74,7 @@ function LLDReadPage() {
         }
       } catch (error) {
         console.error("Failed to start session:", error);
-      } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
@@ -81,32 +82,31 @@ function LLDReadPage() {
     return () => { cancelled = true; };
   }, [searchParams, router]);
 
-  if (loading) {
+  if (status !== "ready" || !sessionData?.lldScenario) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md">
+            <div className="p-6 flex flex-col items-center gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <h2 className="text-xl font-bold">Failed to Load Scenario</h2>
+              <p className="text-slate-400 text-center">
+                Could not load the LLD scenario. Please try again.
+              </p>
+              <Button onClick={() => router.push("/setup")} className="w-full">
+                Back to Setup
+              </Button>
+            </div>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <Skeleton className="h-8 w-48 mx-auto mb-4" />
           <Skeleton className="h-4 w-96 mx-auto" />
         </div>
-      </div>
-    );
-  }
-
-  if (!sessionData || !sessionData.lldScenario) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md">
-          <div className="p-6 flex flex-col items-center gap-4">
-            <AlertCircle className="w-12 h-12 text-red-500" />
-            <h2 className="text-xl font-bold">Failed to Load Scenario</h2>
-            <p className="text-slate-400 text-center">
-              Could not load the LLD scenario. Please try again.
-            </p>
-            <Button onClick={() => router.push("/setup")} className="w-full">
-              Back to Setup
-            </Button>
-          </div>
-        </Card>
       </div>
     );
   }

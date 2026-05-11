@@ -30,7 +30,7 @@ function HLDDesignPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sessionData, setSessionData] = useState<SessionStartResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [submitting, setSubmitting] = useState(false);
   const [hldFormData, setHldFormData] = useState<HLDFormData>({
     functionalReqs: "",
@@ -45,42 +45,41 @@ function HLDDesignPage() {
   const experience = searchParams.get("exp") || "1-3";
 
   useEffect(() => {
+    let cancelled = false;
     const initSession = async () => {
       try {
         if (!sessionId) {
           throw new Error("Missing sessionId");
         }
 
-        // Try localStorage first (from hld/read page)
         const cached = localStorage.getItem(`hld-session-${sessionId}`);
         if (cached) {
-          setSessionData(JSON.parse(cached));
-          setLoading(false);
+          if (cancelled) return;
+          const parsed = JSON.parse(cached);
+          setSessionData(parsed);
+          const savedForm = localStorage.getItem(`${STORAGE_KEY_PREFIX}${sessionId}`);
+          if (savedForm) setHldFormData(JSON.parse(savedForm));
+          setStatus("ready");
           return;
         }
 
-        // Fallback to API if not in localStorage
         const response = await fetch(`/api/session/read?sessionId=${sessionId}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch session data");
-        }
-
+        if (!response.ok) throw new Error("Failed to fetch session data");
         const data = await response.json();
+        if (cancelled) return;
+        if (!data?.scenario) throw new Error("Invalid session response");
         setSessionData(data);
-
-        // Load form state from sessionStorage
         const savedForm = localStorage.getItem(`${STORAGE_KEY_PREFIX}${sessionId}`);
-        if (savedForm) {
-          setHldFormData(JSON.parse(savedForm));
-        }
+        if (savedForm) setHldFormData(JSON.parse(savedForm));
+        setStatus("ready");
       } catch (error) {
         console.error("Failed to load session:", error);
-      } finally {
-        setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
     initSession();
+    return () => { cancelled = true; };
   }, [sessionId]);
 
   // Auto-save form state every 30s
@@ -215,33 +214,32 @@ ${excalidrawDescription}
     }
   };
 
-  if (loading) {
+  if (status !== "ready" || !sessionData?.scenario) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md">
+            <div className="p-6 flex flex-col items-center gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <h2 className="text-xl font-bold">Session Expired</h2>
+              <p className="text-slate-400 text-center">
+                Your session is no longer available — this can happen after the server restarts.
+                Please start a new session.
+              </p>
+              <Button onClick={() => router.push("/setup")} className="w-full">
+                Start New Session
+              </Button>
+            </div>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <Skeleton className="h-8 w-48 mx-auto mb-4" />
           <Skeleton className="h-4 w-96 mx-auto" />
         </div>
-      </div>
-    );
-  }
-
-  if (!sessionData || !sessionData.scenario) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md">
-          <div className="p-6 flex flex-col items-center gap-4">
-            <AlertCircle className="w-12 h-12 text-red-500" />
-            <h2 className="text-xl font-bold">Session Expired</h2>
-            <p className="text-slate-400 text-center">
-              Your session is no longer available — this can happen after the server restarts.
-              Please start a new session.
-            </p>
-            <Button onClick={() => router.push("/setup")} className="w-full">
-              Start New Session
-            </Button>
-          </div>
-        </Card>
       </div>
     );
   }

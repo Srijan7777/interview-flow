@@ -42,7 +42,7 @@ function DSASolvePage() {
   const searchParams = useSearchParams();
   const [round, setRound] = useState<DsaRound | null>(null);
   const [code, setCode] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [submitting, setSubmitting] = useState(false);
   const [isDraft, setIsDraft] = useState(false);
   const [testResults, setTestResults] = useState<SessionTestResult | null>(null);
@@ -57,9 +57,10 @@ function DSASolvePage() {
   const exp = searchParams.get("exp") || "1-3";
 
   useEffect(() => {
+    let cancelled = false;
     const initSolve = async () => {
       try {
-        setLoading(true);
+        setStatus("loading");
         setExperience(exp);
 
         // Reset state on question change
@@ -72,11 +73,11 @@ function DSASolvePage() {
 
         const response = await fetch(`/api/round/read?roundId=${roundId}`);
         if (!response.ok) throw new Error("Failed to fetch round");
-
         const data = await response.json();
+        if (cancelled) return;
+        if (!data?.questions?.[qIndex]) throw new Error("Question not found");
         setRound(data);
 
-        // Restore saved language for this question, else default to javascript
         const savedLang = localStorage.getItem(`round-${roundId}-q${qIndex}-lang`) || "javascript";
         setLanguage(savedLang);
 
@@ -86,16 +87,18 @@ function DSASolvePage() {
         } else {
           const { getCodeStub } = await import("@/lib/problem-stubs");
           const stub = getCodeStub(data.questions[qIndex].problem.leetcodeNumber, savedLang);
+          if (cancelled) return;
           setCode(stub);
         }
+        if (!cancelled) setStatus("ready");
       } catch (error) {
         console.error("Failed to load solve page:", error);
-      } finally {
-        setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
     initSolve();
+    return () => { cancelled = true; };
   }, [roundId, qIndex, exp]);
 
   // Auto-save code
@@ -251,26 +254,25 @@ function DSASolvePage() {
     }
   };
 
-  if (loading) {
+  if (status !== "ready" || !round?.questions?.[qIndex]) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md">
+            <div className="p-6 flex flex-col items-center gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <h2 className="text-xl font-bold">Failed to Load Question</h2>
+              <Button onClick={() => router.push("/setup")} className="w-full">
+                Back to Setup
+              </Button>
+            </div>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <Skeleton className="h-8 w-48" />
-      </div>
-    );
-  }
-
-  if (!round || !round.questions[qIndex]) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md">
-          <div className="p-6 flex flex-col items-center gap-4">
-            <AlertCircle className="w-12 h-12 text-red-500" />
-            <h2 className="text-xl font-bold">Failed to Load Question</h2>
-            <Button onClick={() => router.push("/setup")} className="w-full">
-              Back to Setup
-            </Button>
-          </div>
-        </Card>
       </div>
     );
   }

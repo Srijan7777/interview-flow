@@ -18,7 +18,7 @@ function HLDReadPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sessionData, setSessionData] = useState<SessionStartResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
 
   useEffect(() => {
     let cancelled = false;
@@ -31,7 +31,7 @@ function HLDReadPage() {
           if (cached) {
             if (!cancelled) {
               setSessionData(JSON.parse(cached));
-              setLoading(false);
+              setStatus("ready");
             }
             return;
           }
@@ -42,7 +42,7 @@ function HLDReadPage() {
             if (!cancelled) {
               setSessionData(data);
               localStorage.setItem(`hld-session-${data.sessionId}`, JSON.stringify(data));
-              setLoading(false);
+              setStatus("ready");
             }
             return;
           }
@@ -65,8 +65,10 @@ function HLDReadPage() {
         if (!response.ok) throw new Error("Failed to start session");
         const data = await response.json();
         if (cancelled) return;
+        if (!data?.scenario) throw new Error("Invalid session response");
         setSessionData(data);
         localStorage.setItem(`hld-session-${data.sessionId}`, JSON.stringify(data));
+        setStatus("ready");
 
         // Pin sessionId in URL so back-nav restores the same scenario
         const params = new URLSearchParams(searchParams.toString());
@@ -76,8 +78,7 @@ function HLDReadPage() {
         }
       } catch (error) {
         console.error("Failed to start session:", error);
-      } finally {
-        if (!cancelled) setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
@@ -85,32 +86,31 @@ function HLDReadPage() {
     return () => { cancelled = true; };
   }, [searchParams, router]);
 
-  if (loading) {
+  if (status !== "ready" || !sessionData?.scenario) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md">
+            <div className="p-6 flex flex-col items-center gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <h2 className="text-xl font-bold">Failed to Load Scenario</h2>
+              <p className="text-slate-400 text-center">
+                Could not load the HLD scenario. Please try again.
+              </p>
+              <Button onClick={() => router.push("/setup")} className="w-full">
+                Back to Setup
+              </Button>
+            </div>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <Skeleton className="h-8 w-48 mx-auto mb-4" />
           <Skeleton className="h-4 w-96 mx-auto" />
         </div>
-      </div>
-    );
-  }
-
-  if (!sessionData || !sessionData.scenario) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md">
-          <div className="p-6 flex flex-col items-center gap-4">
-            <AlertCircle className="w-12 h-12 text-red-500" />
-            <h2 className="text-xl font-bold">Failed to Load Scenario</h2>
-            <p className="text-slate-400 text-center">
-              Could not load the HLD scenario. Please try again.
-            </p>
-            <Button onClick={() => router.push("/setup")} className="w-full">
-              Back to Setup
-            </Button>
-          </div>
-        </Card>
       </div>
     );
   }

@@ -16,25 +16,26 @@ function DSARoundPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [round, setRound] = useState<DsaRound | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [experience, setExperience] = useState("");
 
   const roundId = searchParams.get("roundId");
   const exp = searchParams.get("exp") || "1-3";
 
   useEffect(() => {
+    let cancelled = false;
     const initRound = async () => {
       try {
         setExperience(exp);
 
         if (roundId) {
-          // Fetch existing round
           const response = await fetch(`/api/round/read?roundId=${roundId}`);
           if (!response.ok) throw new Error("Failed to fetch round");
           const data = await response.json();
+          if (cancelled) return;
           setRound(data);
+          setStatus("ready");
         } else {
-          // Create new round — exclude previously-solved + recently-attempted
           const solved = getSolvedIds();
           const recent = getRecentlyAttemptedIds(7);
           const excludeIds = Array.from(new Set([...solved, ...recent]));
@@ -47,45 +48,46 @@ function DSARoundPage() {
 
           if (!createRes.ok) throw new Error("Failed to create round");
           const newRound = await createRes.json();
+          if (cancelled) return;
           setRound(newRound);
+          setStatus("ready");
           router.replace(`?roundId=${newRound.roundId}&exp=${exp}`);
         }
       } catch (error) {
         console.error("Failed to load round:", error);
-      } finally {
-        setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
     initRound();
+    return () => { cancelled = true; };
   }, [roundId, exp, router]);
 
-  if (loading) {
+  if (status !== "ready" || !round) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md">
+            <div className="p-6 flex flex-col items-center gap-4">
+              <AlertCircle className="w-12 h-12 text-red-500" />
+              <h2 className="text-xl font-bold">Failed to Load Round</h2>
+              <p className="text-slate-400 text-center">
+                Could not initialize your coding round. Please try again.
+              </p>
+              <Button onClick={() => router.push("/setup")} className="w-full">
+                Back to Setup
+              </Button>
+            </div>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
           <Skeleton className="h-8 w-48 mx-auto mb-4" />
           <Skeleton className="h-4 w-96 mx-auto" />
         </div>
-      </div>
-    );
-  }
-
-  if (!round) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md">
-          <div className="p-6 flex flex-col items-center gap-4">
-            <AlertCircle className="w-12 h-12 text-red-500" />
-            <h2 className="text-xl font-bold">Failed to Load Round</h2>
-            <p className="text-slate-400 text-center">
-              Could not initialize your coding round. Please try again.
-            </p>
-            <Button onClick={() => router.push("/setup")} className="w-full">
-              Back to Setup
-            </Button>
-          </div>
-        </Card>
       </div>
     );
   }

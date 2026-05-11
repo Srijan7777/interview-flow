@@ -18,42 +18,42 @@ function LLDSolvePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [sessionData, setSessionData] = useState<SessionStartResponse | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
   const [zipFile, setZipFile] = useState<File | null>(null);
   const [parsedCode, setParsedCode] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    let cancelled = false;
     const fetchSessionData = async () => {
       try {
         const sessionId = searchParams.get("sessionId");
-        if (!sessionId) {
-          throw new Error("No session ID provided");
-        }
+        if (!sessionId) throw new Error("No session ID provided");
 
-        // Try localStorage first (from lld/read page)
         const cached = localStorage.getItem(`lld-session-${sessionId}`);
         if (cached) {
+          if (cancelled) return;
           setSessionData(JSON.parse(cached));
-          setLoading(false);
+          setStatus("ready");
           return;
         }
 
-        // Fallback to API if not in localStorage
         const response = await fetch(`/api/session/read?sessionId=${sessionId}`);
         if (!response.ok) throw new Error("Session not found");
-
         const data = await response.json();
+        if (cancelled) return;
+        if (!data?.lldScenario) throw new Error("Invalid session response");
         setSessionData(data);
+        setStatus("ready");
       } catch (error) {
         console.error("Failed to fetch session:", error);
-      } finally {
-        setLoading(false);
+        if (!cancelled) setStatus("error");
       }
     };
 
     fetchSessionData();
+    return () => { cancelled = true; };
   }, [searchParams]);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -159,28 +159,27 @@ function LLDSolvePage() {
     }
   };
 
-  if (loading) {
+  if (status !== "ready" || !sessionData?.lldScenario) {
+    if (status === "error") {
+      return (
+        <div className="min-h-screen bg-black flex items-center justify-center p-6">
+          <Card className="bg-slate-900 border-slate-800 max-w-md p-6 text-center flex flex-col items-center">
+            <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
+            <h2 className="text-xl font-bold mb-2">Session Expired</h2>
+            <p className="text-slate-400 text-sm text-center mb-4">
+              Your session is no longer available — this can happen after the server restarts.
+              Please start a new session.
+            </p>
+            <Button onClick={() => router.push("/setup")} className="w-full">
+              Start New Session
+            </Button>
+          </Card>
+        </div>
+      );
+    }
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <Skeleton className="h-8 w-64" />
-      </div>
-    );
-  }
-
-  if (!sessionData || !sessionData.lldScenario) {
-    return (
-      <div className="min-h-screen bg-black flex items-center justify-center p-6">
-        <Card className="bg-slate-900 border-slate-800 max-w-md p-6 text-center flex flex-col items-center">
-          <AlertCircle className="w-12 h-12 text-red-500 mb-4" />
-          <h2 className="text-xl font-bold mb-2">Session Expired</h2>
-          <p className="text-slate-400 text-sm text-center mb-4">
-            Your session is no longer available — this can happen after the server restarts.
-            Please start a new session.
-          </p>
-          <Button onClick={() => router.push("/setup")} className="w-full">
-            Start New Session
-          </Button>
-        </Card>
       </div>
     );
   }
