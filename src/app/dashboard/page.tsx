@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { signOut, useSession } from "next-auth/react";
 import {
   Binary,
   Network,
@@ -137,6 +138,7 @@ function computeStats(history: SolvedEntry[]): {
 }
 
 export default function DashboardPage() {
+  const { data: session } = useSession();
   const [mounted, setMounted] = useState(false);
   const [history, setHistory] = useState<SolvedEntry[]>([]);
   const [weakTopics, setWeakTopics] = useState<
@@ -198,6 +200,36 @@ export default function DashboardPage() {
             >
               Home
             </Link>
+
+            {session?.user && (
+              <div className="hidden sm:flex items-center gap-2.5 pl-4 border-l border-white/10">
+                {session.user.image ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={session.user.image}
+                    alt={session.user.name || "user"}
+                    className="w-7 h-7 rounded-full ring-1 ring-white/10"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-7 h-7 rounded-full grid place-items-center bg-gradient-to-br from-indigo-500 to-violet-600 text-[11px] font-bold text-white">
+                    {(session.user.name || session.user.email || "?")
+                      .charAt(0)
+                      .toUpperCase()}
+                  </div>
+                )}
+                <span className="text-[13px] text-slate-200 font-medium max-w-[140px] truncate">
+                  {session.user.name || session.user.email}
+                </span>
+              </div>
+            )}
+
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-[13px] text-slate-400 hover:text-white transition mk-link hidden sm:block"
+            >
+              Sign out
+            </button>
             <Link href="/setup">
               <Button
                 size="sm"
@@ -215,13 +247,17 @@ export default function DashboardPage() {
         {/* Identity / header */}
         <div className="mb-12 flex items-end justify-between gap-6 flex-wrap">
           <div>
-            <div className="mk-rise mk-rise-1 mk-eyebrow mb-4">— Your training arc</div>
+            <div className="mk-rise mk-rise-1 mk-eyebrow mb-4">
+              — Signed in as{" "}
+              <span className="text-indigo-300 normal-case tracking-normal">
+                {session?.user?.name || session?.user?.email || "…"}
+              </span>
+            </div>
             <h1 className="mk-rise mk-rise-2 mk-display text-[44px] sm:text-[60px] lg:text-[76px] tracking-tighter mk-text-fade max-w-3xl">
               Dashboard
             </h1>
             <p className="mk-rise mk-rise-3 mt-5 max-w-xl text-[15px] text-slate-400 leading-relaxed">
-              Anonymous session · stored locally on this device. No accounts, no
-              tracking — your progress lives in your browser.
+              Your training arc. Progress is stored locally on this device for now.
             </p>
           </div>
 

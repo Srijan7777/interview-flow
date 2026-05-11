@@ -12,6 +12,7 @@ import {
   FileCode2,
   ChevronRight,
 } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Home() {
   return (
@@ -44,15 +45,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <Link href="/setup">
-            <Button
-              size="sm"
-              className="relative h-9 px-4 bg-white text-black hover:bg-white/90 text-[13px] font-semibold rounded-md"
-            >
-              Start session
-              <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" strokeWidth={2.5} />
-            </Button>
-          </Link>
+          <NavActions />
         </div>
       </nav>
 
@@ -397,6 +390,50 @@ export default function Home() {
           </div>
         </div>
       </footer>
+    </div>
+  );
+}
+
+function NavActions() {
+  const { data: session, status } = useSession();
+  if (status === "loading") return null;
+
+  if (session?.user) {
+    return (
+      <div className="flex items-center gap-3">
+        <Link href="/setup">
+          <Button
+            size="sm"
+            className="relative h-9 px-4 bg-white text-black hover:bg-white/90 text-[13px] font-semibold rounded-md"
+          >
+            Start session
+            <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" strokeWidth={2.5} />
+          </Button>
+        </Link>
+        <button
+          onClick={() => signOut({ callbackUrl: "/" })}
+          className="text-[13px] text-slate-400 hover:text-white transition mk-link"
+        >
+          Sign out
+        </button>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      <Link href="/login" className="text-[13px] text-slate-400 hover:text-white transition mk-link">
+        Sign in
+      </Link>
+      <Link href="/setup">
+        <Button
+          size="sm"
+          className="relative h-9 px-4 bg-white text-black hover:bg-white/90 text-[13px] font-semibold rounded-md"
+        >
+          Start session
+          <ArrowUpRight className="w-3.5 h-3.5 ml-1.5" strokeWidth={2.5} />
+        </Button>
+      </Link>
     </div>
   );
 }

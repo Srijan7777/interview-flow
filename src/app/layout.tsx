@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, JetBrains_Mono } from "next/font/google";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -28,7 +29,9 @@ export default function RootLayout({
       lang="en"
       className={`${montserrat.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-black font-sans">{children}</body>
+      <body className="min-h-full flex flex-col bg-black font-sans">
+          <Providers>{children}</Providers>
+        </body>
     </html>
   );
 }
