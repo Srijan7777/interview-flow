@@ -108,7 +108,17 @@ export default function SetupPage() {
     } else if (showsDifficulty && difficulty.length === ALL_DIFFICULTIES.length) {
       // all selected — pass nothing (server treats absent as "all")
     }
-    router.push(`/session/${type}?${params.toString()}`);
+    // Route directly to the destination page instead of via the legacy
+    // /session/[type] redirect router (which briefly flashed an error).
+    const dest =
+      type === "dsa"
+        ? "/session/dsa/round"
+        : type === "hld"
+        ? "/session/hld/read"
+        : type === "lld"
+        ? "/session/lld/read"
+        : `/session/${type}`;
+    router.push(`${dest}?${params.toString()}`);
   };
 
   const loadBankPreview = async () => {

@@ -52,6 +52,8 @@ function SessionPage({ params }: PageProps) {
   const [experience, setExperience] = useState("");
   const [language, setLanguage] = useState("javascript");
 
+  const [redirecting, setRedirecting] = useState(false);
+
   useEffect(() => {
     const initSession = async () => {
       try {
@@ -60,20 +62,19 @@ function SessionPage({ params }: PageProps) {
         const difficulty = searchParams.get("difficulty");
         const diffSuffix = difficulty ? `&difficulty=${encodeURIComponent(difficulty)}` : "";
 
-        // Route HLD to read page instead
+        // Route HLD/LLD/DSA to their proper pages
         if (resolvedParams.type === "hld") {
+          setRedirecting(true);
           router.replace(`/session/hld/read?exp=${exp}${diffSuffix}`);
           return;
         }
-
-        // Route LLD to read page instead
         if (resolvedParams.type === "lld") {
+          setRedirecting(true);
           router.replace(`/session/lld/read?exp=${exp}${diffSuffix}`);
           return;
         }
-
-        // Route DSA to round page instead
         if (resolvedParams.type === "dsa") {
+          setRedirecting(true);
           router.replace(`/session/dsa/round?exp=${exp}`);
           return;
         }
@@ -263,7 +264,7 @@ function SessionPage({ params }: PageProps) {
     handleSubmit(result);
   };
 
-  if (loading) {
+  if (loading || redirecting) {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
