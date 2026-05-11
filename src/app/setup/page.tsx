@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 import { Badge } from "@/components/ui/badge";
 import {
   Binary,
@@ -14,13 +15,11 @@ import {
   CheckCircle2,
   Target,
   RefreshCw,
-  X,
   ArrowUpRight,
   CircleSlash2,
   TrendingDown,
 } from "lucide-react";
 import { getWeakTopics } from "@/lib/weakness-tracker";
-import { getSolvedCount, clearSolvedHistory } from "@/lib/solved-tracker";
 
 type Difficulty = "easy" | "medium" | "hard";
 const ALL_DIFFICULTIES: Difficulty[] = ["easy", "medium", "hard"];
@@ -156,12 +155,20 @@ export default function SetupPage() {
             </span>
           </Link>
 
-          <Link
-            href="/dashboard"
-            className="text-[13px] text-slate-400 hover:text-white transition mk-link"
-          >
-            Dashboard
-          </Link>
+          <div className="flex items-center gap-5">
+            <Link
+              href="/dashboard"
+              className="text-[13px] text-slate-400 hover:text-white transition mk-link"
+            >
+              Dashboard
+            </Link>
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="text-[13px] text-slate-400 hover:text-white transition mk-link"
+            >
+              Sign out
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -528,56 +535,35 @@ function Step({
 }
 
 function StatsRow() {
-  const [solved, setSolved] = useState(0);
   const [weak, setWeak] = useState<{ topic: string; avgScore: number; count: number }[]>([]);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setSolved(getSolvedCount());
     setWeak(getWeakTopics(3));
     setMounted(true);
   }, []);
 
-  const handleReset = () => {
-    if (
-      confirm("Reset solved history? You'll start seeing already-solved problems again.")
-    ) {
-      clearSolvedHistory();
-      setSolved(0);
-    }
-  };
-
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-      {/* Solved */}
-      <div className="relative rounded-lg border border-white/10 bg-gradient-to-br from-emerald-500/[0.08] via-white/[0.02] to-transparent p-5 overflow-hidden">
+      {/* Dashboard link */}
+      <Link
+        href="/dashboard"
+        className="group relative rounded-lg border border-white/10 bg-gradient-to-br from-emerald-500/[0.08] via-white/[0.02] to-transparent p-5 overflow-hidden hover:border-emerald-400/30 transition"
+      >
         <div className="flex items-start justify-between mb-2">
           <div className="mk-eyebrow flex items-center gap-2 text-emerald-200">
             <CheckCircle2 className="w-3.5 h-3.5" />
-            Solved · excluded
+            Your progress
           </div>
-          {solved > 0 && (
-            <button
-              onClick={handleReset}
-              className="text-[11px] text-slate-500 hover:text-slate-200 transition flex items-center gap-1"
-            >
-              <X className="w-3 h-3" />
-              reset
-            </button>
-          )}
+          <ArrowUpRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-emerald-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition" />
         </div>
-        <div className="mk-display text-[40px] tabular-nums text-white tracking-tighter">
-          {mounted ? solved : "—"}
-          <span className="text-[16px] text-slate-500 ml-1.5 font-normal">
-            {solved === 1 ? "problem" : "problems"}
-          </span>
+        <div className="mk-display text-[28px] text-white tracking-tighter leading-tight">
+          See your progress
         </div>
-        <p className="mt-1 text-[12px] text-slate-400">
-          {solved > 0
-            ? "Excluded from your next round."
-            : "Nothing skipped yet — solve one to start the streak."}
+        <p className="mt-1.5 text-[12px] text-slate-400">
+          Streaks, solved history, topic coverage — open the dashboard.
         </p>
-      </div>
+      </Link>
 
       {/* Weak topics */}
       <div className="lg:col-span-2 relative rounded-lg border border-white/10 bg-gradient-to-br from-rose-500/[0.06] via-white/[0.02] to-transparent p-5 overflow-hidden">
