@@ -120,6 +120,7 @@ export async function POST(request: NextRequest) {
         try {
           report = await generateLLDReportGroq({
             title: scenario.title,
+            problemContext: scenario.prompt || "",
             requirements: scenario.requirements,
             code,
             experience,

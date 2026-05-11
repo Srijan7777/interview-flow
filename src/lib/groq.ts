@@ -415,27 +415,78 @@ Return ONLY valid JSON matching this exact shape:
 
 function buildLLDPrompt(params: {
   title: string;
+  problemContext: string;
   requirements: string[];
   code: string;
   experience: string;
   timeTakenMinutes: number;
 }): string {
-  return `You are a principal engineer evaluating a FAANG Low-Level Design (LLD) interview.
+  const expYears = parseInt(params.experience) || 0;
+  const expBand =
+    expYears <= 1
+      ? "entry-level (0-1 yrs): grade as a new grad; reward any reasonable OOD; do not expect mastery of all SOLID/design patterns"
+      : expYears <= 3
+      ? "junior (2-3 yrs): grade against SDE II bar; reward clean class boundaries and basic SOLID use"
+      : expYears <= 6
+      ? "mid-senior (4-6 yrs): grade against Senior SDE bar; expect SOLID, key patterns, extensibility hooks"
+      : "senior+ (7+ yrs): grade against Staff bar; expect mastery — extensibility, testability, deep pattern fluency";
+
+  return `You are a SUPPORTIVE principal engineer running a FAANG mock Low-Level Design (LLD) interview.
+
+Your goal: encourage candidates and accurately reward solid OOD. Be LENIENT but honest.
+This is practice, not a real interview - we want the candidate to leave motivated.
 
 ## Candidate Profile
-- Experience: ${params.experience} years
+- Experience: ${params.experience} years → ${expBand}
 - Time taken: ${params.timeTakenMinutes} min
 
-## System Design Prompt
+## Scoring Guide (calibrate to experience band above)
+- 10 = production-grade design at staff+ level (rare)
+- 9 = senior bar: clean SOLID, appropriate patterns, extensibility shown
+- 8 = solid mid bar: requirements met, mostly clean OOD, minor issues
+- 7 = adequate: works but rigid; some SOLID violations
+- 6 = passing: works but tightly coupled or hard to extend
+- 5 or below = significant design issues or missing requirements
+
+## What to reward (do NOT deduct for missing these)
+- Clear class boundaries and single responsibility
+- Use of relevant design patterns (Strategy, Factory, Observer, etc.) when they fit
+- Extensibility hooks (new types added without changing existing classes)
+- Encapsulation (private fields, public methods, immutability where right)
+- Test-friendly design (DI, interfaces over concrete)
+- Concrete handling of edge cases mentioned in requirements
+
+## What to deduct for (be specific)
+- Missing or mis-handled requirements (cite which one)
+- Hardcoded values where extensibility was explicitly asked
+- God class (all logic in one class)
+- Anemic models (no behavior, just data) when domain logic belongs there
+- Internally inconsistent design
+
+## Experience-aware bonus
+- For entry/junior bands, ADD +1 to overall if class structure shows clear thinking.
+- For senior+ band, do NOT inflate — they should meet the senior bar.
+
+## LLD Problem
 ${params.title}
 
-## Requirements
-${params.requirements.map((r) => `- ${r}`).join("\n")}
+## Problem Context
+${params.problemContext}
+
+## Requirements (grading rubric — these are what MUST be addressed)
+${params.requirements.map((r, i) => `${i + 1}. ${r}`).join("\n")}
 
 ## Candidate Code
+\`\`\`
 ${params.code}
+\`\`\`
 
-Evaluate strictly on OOD principles (SOLID, patterns, modularity).
+## Follow-up questions
+Generate 4-6 follow-up questions a real interviewer would ask based on the candidate's code.
+- Mix easy/medium/hard
+- Probe gaps in OOD OR push deeper on what they covered well
+- Examples: "How would you extend X to support Y?", "What if the system needs thread safety?", "What pattern would help here?"
+- Each follow-up gets a one-line hint
 
 Respond with ONLY valid JSON:
 {
@@ -461,12 +512,16 @@ Respond with ONLY valid JSON:
     "shouldRetry": <boolean>,
     "suggestedTopics": ["<topic1>", "<topic2>"],
     "nextDifficulty": "easy"|"medium"|"hard"
-  }
+  },
+  "followUps": [
+    { "question": "<interviewer follow-up Q>", "difficulty": "easy"|"medium"|"hard", "hint": "<one-line hint>" }
+  ]
 }`;
 }
 
 export async function generateLLDReportGroq(params: {
   title: string;
+  problemContext: string;
   requirements: string[];
   code: string;
   experience: string;
@@ -497,6 +552,7 @@ export async function generateLLDReportGroq(params: {
     missing: parsed.missing,
     optimalApproach: parsed.optimalApproach,
     recommendation: parsed.recommendation,
+    interviewerFollowUps: Array.isArray(parsed.followUps) ? parsed.followUps : [],
     reference: params.referenceUrl
       ? { url: params.referenceUrl, label: params.referenceLabel || "Reference" }
       : undefined,
