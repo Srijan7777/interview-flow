@@ -38,7 +38,10 @@ async function pollForResult(token: string, maxAttempts: number = 10): Promise<a
     const response = await fetch(`${JUDGE0_API}/submissions/${token}?base64_encoded=false`);
 
     if (!response.ok) {
-      throw new Error(`Failed to poll Judge0: ${response.statusText}`);
+      const bodyText = await response.text().catch(() => "");
+      throw new Error(
+        `Judge0 poll ${response.status} ${response.statusText}: ${bodyText.slice(0, 300)}`
+      );
     }
 
     const result = await response.json();
@@ -74,7 +77,10 @@ async function executeWithJudge0(
   });
 
   if (!submitResponse.ok) {
-    throw new Error(`Judge0 submission failed: ${submitResponse.statusText}`);
+    const bodyText = await submitResponse.text().catch(() => "");
+    throw new Error(
+      `Judge0 submit ${submitResponse.status} ${submitResponse.statusText}: ${bodyText.slice(0, 300)}`
+    );
   }
 
   const submitData = await submitResponse.json();
